@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>MyCollege — Find Your Perfect University in India</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700;800&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --board:#1B3E27;--board2:#1F4830;--chalk:#F2EFE4;--chalk2:rgba(242,239,228,.55);
+  --chalk3:rgba(242,239,228,.18);--chalk4:rgba(242,239,228,.07);
+  --dark:#0D0F17;--dark2:#13161F;--dark3:#1A1E2B;
+  --border:#252A3A;--border2:#2E3446;
+  --gold:#E8A020;--gold2:#F5C272;
+  --green:#3DD68C;--blue:#5B8CF5;
+  --text:#E8EAF2;--text2:#8B91A8;--text3:#5A6075;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--dark);color:var(--text);font-family:'DM Sans',sans-serif}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;height:58px;
+    background:rgba(13,15,23,.92);backdrop-filter:blur(18px);
+    border-bottom:1px solid rgba(255,255,255,.06)}
+.nav-inner{max-width:1300px;width:100%;margin:0 auto;height:58px;
+           display:flex;align-items:center;justify-content:space-between;padding:0 2rem}
+.logo{font-family:'Caveat',cursive;font-size:1.7rem;font-weight:800;
+      color:var(--chalk);text-decoration:none;letter-spacing:-.01em}
+.logo span{color:var(--gold)}
+.nav-links{display:flex;list-style:none}
+.nav-links a{font-size:13px;font-weight:500;color:var(--text2);text-decoration:none;
+             padding:6px 16px;border-radius:8px;transition:all .2s}
+.nav-links a:hover,.nav-links a.active{color:var(--chalk);background:rgba(255,255,255,.08)}
+
+/* HERO */
+#home{padding-top:58px}
+.hero{
+  background:var(--board);
+  min-height:55vh;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+  transition:min-height .8s cubic-bezier(.4,0,.2,1);
+  padding:3rem 1.5rem 2rem;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:repeating-linear-gradient(0deg,transparent,transparent 47px,
+    rgba(242,239,228,.05) 47px,rgba(242,239,228,.05) 48px);
+}
+.hero::after{
+  content:'';position:absolute;inset:0;pointer-events:none;opacity:.3;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='.08'/%3E%3C/svg%3E");
+}
+.hero.compact{min-height:90px}
+
+/* Chalk art */
+.chalk-art{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.chalk-art .item{position:absolute;font-family:'Caveat',cursive;color:rgba(242,239,228,.15);line-height:1}
+.chalk-art .cap{font-size:5rem;top:8%;left:5%}
+.chalk-art .books{font-size:3.5rem;bottom:10%;left:4%}
+.chalk-art .pencil{font-size:3rem;top:12%;right:5%}
+.chalk-art .atom{font-size:4rem;bottom:8%;right:6%}
+.chalk-art .formula{font-family:'DM Mono',monospace;font-size:.95rem;top:22%;left:50%;
+                    transform:translateX(-50%);opacity:.1;white-space:nowrap;color:var(--chalk)}
+.chalk-art .formula2{font-family:'DM Mono',monospace;font-size:.8rem;top:70%;left:14%;opacity:.09;color:var(--chalk)}
+.chalk-art .formula3{font-family:'DM Mono',monospace;font-size:.8rem;bottom:16%;right:13%;opacity:.09;color:var(--chalk)}
+.chalk-art .circle{position:absolute;border:2px solid rgba(242,239,228,.15);border-radius:50%}
+.chalk-art .c1{width:180px;height:180px;top:-60px;right:18%}
+.chalk-art .c2{width:90px;height:90px;bottom:18%;left:20%}
+.chalk-art .line{position:absolute;background:rgba(242,239,228,.13);height:1px}
+.chalk-art .l1{width:120px;top:35%;left:8%;transform:rotate(-25deg)}
+.chalk-art .l2{width:80px;top:58%;right:10%;transform:rotate(15deg)}
+
+/* Hero content */
+.hero-content{text-align:center;max-width:700px;z-index:2;position:relative;
+              transition:opacity .5s,transform .5s,max-height .7s ease,margin .7s;
+              max-height:600px;overflow:hidden}
+.hero.compact .hero-content{opacity:0;transform:translateY(-16px);
+                             max-height:0;margin:0;pointer-events:none}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;
+              letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:1.4rem;
+              background:rgba(232,160,32,.1);border:1px solid rgba(232,160,32,.25);
+              border-radius:20px;padding:5px 14px}
+.hero h1{font-family:'Caveat',cursive;font-size:clamp(3.2rem,7vw,5.8rem);font-weight:800;
+         color:var(--chalk);line-height:1;letter-spacing:-.02em;margin-bottom:.6rem}
+.hero h1 span{color:var(--gold)}
+.hero-tagline{font-size:1rem;color:rgba(242,239,228,.6);font-weight:300;line-height:1.65;
+              max-width:480px;margin:0 auto 1.8rem}
+.hero-chips{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.chip{font-size:11px;font-weight:500;color:rgba(242,239,228,.6);
+      background:rgba(242,239,228,.07);border:1px solid rgba(242,239,228,.15);
+      border-radius:20px;padding:4px 12px}
+
+/* ═══════════════════════════════════════════
+   SEARCH ZONE  —  lives OUTSIDE the hero
+   position:relative so dropdown (position:absolute)
+   is clipped by nothing except this container
+   ═══════════════════════════════════════════ */
+.search-zone{
+  background:var(--board);          /* seamless with hero */
+  padding:0 1.5rem 2.5rem;
+  display:flex;flex-direction:column;align-items:center;
+  position:relative;                /* dropdown anchor */
+  overflow:visible;                 /* NEVER clip the dropdown */
+  z-index:100;
+}
+
+/* The search input wrapper — dropdown is absolute child of THIS */
+.search-wrap{
+  position:relative;               /* dropdown positioned relative to here */
+  width:100%;
+  max-width:740px;
+  margin-bottom:14px;
+}
+
+.search-icon-el{
+  position:absolute;left:18px;top:50%;transform:translateY(-50%);
+  font-size:1.1rem;color:rgba(242,239,228,.4);pointer-events:none;z-index:2
+}
+#si{
+  width:100%;padding:16px 18px 16px 50px;
+  background:rgba(242,239,228,.09);
+  border:1.5px solid rgba(242,239,228,.22);
+  border-radius:14px;color:var(--chalk);
+  font-size:15px;font-family:'DM Sans',sans-serif;
+  outline:none;transition:border-color .25s,background .25s,box-shadow .25s;
+  backdrop-filter:blur(6px)
+}
+#si::placeholder{color:rgba(242,239,228,.38)}
+#si:focus{
+  border-color:var(--gold);
+  background:rgba(242,239,228,.13);
+  box-shadow:0 0 0 4px rgba(232,160,32,.14)
+}
+
+/* DROPDOWN — position:absolute, child of .search-wrap */
+#dd{
+  display:none;
+  position:absolute;
+  top:calc(100% + 8px);
+  left:0;right:0;
+  background:#10151f;
+  border:1.5px solid rgba(255,255,255,.12);
+  border-radius:16px;
+  z-index:9999;
+  max-height:420px;
+  overflow-y:auto;
+  overflow-x:hidden;
+  scroll-behavior:smooth;
+  box-shadow:0 24px 60px rgba(0,0,0,.7),0 6px 20px rgba(0,0,0,.4);
+}
+#dd::-webkit-scrollbar{width:5px}
+#dd::-webkit-scrollbar-track{background:transparent}
+#dd::-webkit-scrollbar-thumb{background:rgba(255,255,255,.15);border-radius:4px}
+#dd::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,.25)}
+
+/* Dropdown internals */
+.dd-tip{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:11px 18px;font-size:12px;color:var(--text3);
+  background:rgba(255,255,255,.03);
+  border-bottom:1px solid rgba(255,255,255,.07);
+  border-radius:16px 16px 0 0;
+  position:sticky;top:0;z-index:10;
+}
+.dd-tip strong{color:var(--gold2)}
+.dd-cat-hdr{
+  padding:8px 18px 5px;
+  font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--gold);
+  background:rgba(232,160,32,.06);
+  border-top:1px solid rgba(232,160,32,.12);
+  border-bottom:1px solid rgba(255,255,255,.05);
+}
+.dd-item{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:13px 18px;font-size:13.5px;cursor:pointer;
+  color:var(--text);
+  border-bottom:1px solid rgba(255,255,255,.04);
+  border-left:3px solid transparent;
+  transition:background .12s,border-left-color .12s;
+  gap:12px;
+}
+.dd-item:last-child{border-bottom:none}
+.dd-item:hover,.dd-item.dd-hi{
+  background:rgba(255,255,255,.07);
+  border-left-color:var(--gold);
+}
+.dd-name{flex:1;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dd-badge{
+  flex-shrink:0;font-size:10px;font-family:'DM Mono',monospace;
+  color:var(--text3);background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.09);
+  border-radius:5px;padding:3px 8px;white-space:nowrap;
+}
+.dd-more{
+  padding:13px 18px;font-size:13px;color:var(--gold);
+  cursor:pointer;text-align:center;
+  background:rgba(232,160,32,.05);
+  border-top:1px solid rgba(255,255,255,.07);
+  border-radius:0 0 16px 16px;
+  transition:background .15s;
+}
+.dd-more:hover{background:rgba(232,160,32,.12)}
+
+/* TAGS */
+#tag-list{display:flex;flex-wrap:wrap;gap:8px;max-width:740px;width:100%}
+.tag{
+  display:flex;align-items:center;gap:6px;
+  background:rgba(232,160,32,.12);border:1px solid rgba(232,160,32,.3);
+  border-radius:8px;padding:5px 11px;font-size:12px;color:var(--gold2);
+  animation:tagIn .2s ease;
+}
+.tag button{background:none;border:none;cursor:pointer;color:rgba(232,160,32,.5);
+            display:flex;align-items:center;padding:0;transition:color .15s;font-size:13px}
+.tag button:hover{color:var(--gold)}
+@keyframes tagIn{from{opacity:0;transform:scale(.88)}to{opacity:1;transform:scale(1)}}
+
+/* RESULTS */
+#results-section{
+  max-width:1300px;margin:0 auto;padding:2rem 2rem 4rem;
+  opacity:0;transform:translateY(24px);
+  transition:opacity .6s .3s,transform .6s .3s;pointer-events:none;
+}
+#results-section.show{opacity:1;transform:none;pointer-events:all}
+.res-header{display:flex;align-items:center;justify-content:space-between;
+            margin-bottom:1.25rem;flex-wrap:wrap;gap:10px}
+#res-count{font-size:12px;font-family:'DM Mono',monospace;color:var(--text3)}
+.btn-sm{background:none;border:1px solid var(--border2);border-radius:8px;
+        color:var(--text2);font-size:12px;font-family:'DM Sans',sans-serif;
+        padding:6px 14px;cursor:pointer;transition:all .15s}
+.btn-sm:hover{border-color:var(--text3);color:var(--text)}
+
+/* TABLE */
+.tbl-wrap{overflow-x:auto;border-radius:14px;border:1px solid var(--border)}
+.tbl-wrap::-webkit-scrollbar{height:5px}
+.tbl-wrap::-webkit-scrollbar-track{background:var(--dark2)}
+.tbl-wrap::-webkit-scrollbar-thumb{background:var(--border2);border-radius:4px}
+table{width:100%;border-collapse:collapse;font-size:12px;min-width:1050px}
+thead{background:var(--dark3)}
+th{padding:10px 11px;text-align:left;font-size:10px;font-weight:600;
+   letter-spacing:.1em;text-transform:uppercase;color:var(--text3);
+   border-bottom:1px solid var(--border);white-space:nowrap}
+tbody tr{border-bottom:1px solid rgba(255,255,255,.04);transition:background .12s}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:rgba(255,255,255,.025)}
+td{padding:11px 11px;vertical-align:top}
+.pos-badge{display:inline-flex;align-items:center;justify-content:center;
+           width:24px;height:24px;border-radius:50%;font-family:'DM Mono',monospace;
+           font-size:11px;font-weight:500;background:var(--dark3);
+           color:var(--text3);border:1px solid var(--border2)}
+.pos-badge.g{background:rgba(212,175,55,.15);color:#D4AF37;border-color:rgba(212,175,55,.3)}
+.pos-badge.s{background:rgba(180,180,180,.12);color:#B8B8B8;border-color:rgba(180,180,180,.25)}
+.pos-badge.b{background:rgba(160,100,60,.15);color:#CD7F32;border-color:rgba(160,100,60,.3)}
+.u-name{font-weight:600;font-size:12.5px;color:var(--text);margin-bottom:3px}
+.u-fact{font-size:10.5px;color:var(--text3);line-height:1.5;max-width:190px}
+.nirf-num{display:inline-flex;align-items:center;justify-content:center;
+          width:28px;height:28px;border-radius:50%;
+          background:rgba(91,140,245,.12);border:1px solid rgba(91,140,245,.25);
+          color:var(--blue);font-family:'DM Mono',monospace;font-size:11px;font-weight:500}
+.nirf-cat{font-size:10px;color:var(--text3);margin-top:3px;font-family:'DM Mono',monospace}
+.pct{font-weight:600;font-size:13px;color:var(--green)}
+.pkg-hi{font-weight:600;font-size:12.5px;color:var(--text)}
+.pkg-sym{color:var(--gold)}
+.rpill{display:inline-block;background:rgba(91,140,245,.1);border:1px solid rgba(91,140,245,.2);
+       border-radius:5px;padding:2px 6px;font-size:10px;color:#8AABF7;margin:2px 2px 2px 0}
+.cpill{display:inline-block;background:var(--dark3);border:1px solid var(--border);
+       border-radius:5px;padding:2px 6px;font-size:10px;color:var(--text2);margin:2px 2px 2px 0}
+.upill{display:inline-block;background:rgba(232,160,32,.08);border:1px solid rgba(232,160,32,.22);
+       border-radius:5px;padding:2px 6px;font-size:10px;color:var(--gold2);margin:2px 2px 2px 0}
+.dash{color:var(--text3)}
+
+/* ABOUT */
+#about{background:var(--dark2);border-top:1px solid var(--border)}
+.about-hero{background:linear-gradient(135deg,#0F1A28,#0D0F17);
+            padding:6rem 2rem 5rem;text-align:center;border-bottom:1px solid var(--border)}
+.about-eyebrow{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+               color:var(--gold);margin-bottom:1rem;display:block}
+.about-title{font-family:'Caveat',cursive;font-size:3rem;font-weight:800;color:var(--text)}
+.about-body{max-width:900px;margin:0 auto;padding:4rem 2rem}
+.about-desc-box{background:var(--dark3);border:1px solid var(--border2);border-radius:16px;
+                padding:3rem;margin-bottom:2.5rem;min-height:240px}
+.about-desc-box label{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+                      color:var(--text3);display:block;margin-bottom:1.5rem}
+.about-desc-box p{font-size:14px;color:var(--text3);font-style:italic;line-height:1.8}
+.about-contact{background:var(--dark3);border:1px solid var(--border2);border-radius:16px;
+               padding:2.5rem;margin-bottom:2.5rem}
+.about-contact h3{font-family:'Caveat',cursive;font-size:1.6rem;color:var(--text);margin-bottom:1.5rem}
+.contact-row{display:flex;gap:1rem;padding:1rem 0;border-bottom:1px solid var(--border);
+             align-items:center;flex-wrap:wrap}
+.contact-row:last-child{border-bottom:none}
+.contact-label{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+               color:var(--text3);min-width:100px}
+.contact-value{font-size:14px;color:var(--text2)}
+.thankyou{background:linear-gradient(135deg,rgba(232,160,32,.1),rgba(232,160,32,.05));
+          border:1px solid rgba(232,160,32,.2);border-radius:16px;
+          padding:2.5rem;text-align:center}
+.thankyou h3{font-family:'Caveat',cursive;font-size:2rem;color:var(--gold2);margin-bottom:1rem}
+.thankyou p{font-size:14px;color:var(--text2);line-height:1.75;max-width:500px;margin:0 auto}
+
+/* FOOTER */
+footer{background:var(--dark);border-top:1px solid var(--border);
+       padding:2rem;text-align:center}
+footer p{font-size:12px;color:var(--text3)}
+footer strong{color:var(--text2)}
+
+/* RESPONSIVE */
+@media(max-width:640px){
+  .hero h1{font-size:2.8rem}
+  .hero{padding:2rem 1rem 1.5rem}
+  .search-zone{padding:0 1rem 2rem}
+  #results-section{padding:1.5rem 1rem 3rem}
+  .about-body{padding:2rem 1rem}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#home" class="logo">My<span>College</span></a>
+    <ul class="nav-links">
+      <li><a href="#home" class="active" onclick="setActive(this)">Home</a></li>
+      <li><a href="#about" onclick="setActive(this)">About Us</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ══ HOME ══════════════════════════════════════════════ -->
+<section id="home">
+
+  <!-- HERO: blackboard with decorations + title only -->
+  <div class="hero" id="hero">
+    <div class="chalk-art" aria-hidden="true">
+      <div class="item cap">🎓</div>
+      <div class="item books">📚</div>
+      <div class="item pencil">✏️</div>
+      <div class="item atom">⚗️</div>
+      <div class="item formula">E = mc²  &nbsp;&nbsp;  F = ma  &nbsp;&nbsp;  PV = nRT  &nbsp;&nbsp;  ∑F = 0</div>
+      <div class="item formula2">∫∫f(x,y)dxdy &nbsp;&nbsp; ∇²φ = 0 &nbsp;&nbsp; σ = P/A</div>
+      <div class="item formula3">lim(x→∞) &nbsp;&nbsp; y = mx + c &nbsp;&nbsp; sin²θ + cos²θ = 1</div>
+      <div class="circle c1"></div>
+      <div class="circle c2"></div>
+      <div class="line l1"></div>
+      <div class="line l2"></div>
+    </div>
+
+    <!-- Title fades when compact -->
+    <div class="hero-content" id="hero-content">
+      <div class="hero-eyebrow">✦ Free &nbsp;·&nbsp; No login &nbsp;·&nbsp; NIRF 2024-25 Data</div>
+      <h1>My<span>College</span></h1>
+      <p class="hero-tagline">Compare India's top 277 universities — rankings, placements, packages &amp; courses, side by side.</p>
+      <div class="hero-chips">
+        <span class="chip">⚙️ 205 Engineering Colleges</span>
+        <span class="chip">🏫 32 Universities</span>
+        <span class="chip">💼 26 Management Schools</span>
+        <span class="chip">🏥 Medical &amp; Law</span>
+        <span class="chip">🆓 Completely Free</span>
+      </div>
+    </div>
+  </div>
+
+  <!--
+    SEARCH ZONE — intentionally placed OUTSIDE the hero div.
+    Same board background so it looks seamless.
+    overflow:visible means the dropdown is NEVER clipped.
+    The dropdown (#dd) is position:absolute inside .search-wrap.
+  -->
+  <div class="search-zone">
+    <div class="search-wrap" id="sw">
+      <span class="search-icon-el">🔍</span>
+      <input
+        type="text" id="si" autocomplete="off"
+        placeholder="Click to browse all 277 colleges — or type to search…"
+        onfocus="showAll()"
+        oninput="onSearch()"
+        onkeydown="onKey(event)"
+      />
+      <!-- Dropdown is a DIRECT child of .search-wrap (the position:relative parent) -->
+      <div id="dd"></div>
+    </div>
+    <div id="tag-list"></div>
+  </div>
+
+</section><!-- /home -->
+
+<!-- RESULTS -->
+<div id="results-section" style="display:none">
+  <div class="res-header">
+    <span id="res-count"></span>
+    <button class="btn-sm" onclick="clearAll()">✕ Clear all</button>
+  </div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr>
+        <th style="width:32px">#</th>
+        <th style="width:16%">University</th>
+        <th style="width:8%">NIRF rank</th>
+        <th style="width:8%">Placement</th>
+        <th style="width:10%">Highest pkg</th>
+        <th style="width:10%">Avg pkg</th>
+        <th style="width:18%">Top recruiters</th>
+        <th style="width:14%">Top courses</th>
+        <th>Unique courses</th>
+      </tr></thead>
+      <tbody id="tb"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══ ABOUT ══════════════════════════════════════════════ -->
+<section id="about">
+  <div class="about-hero">
+    <span class="about-eyebrow">Our Story</span>
+    <div class="about-title">About MyCollege</div>
+  </div>
+  <div class="about-body">
+    <div class="about-desc-box">
+      <label>About the website</label>
+      <p>[ Description coming soon — tell your story here. What inspired MyCollege? Who is it for? What problem does it solve for students across India? This space is yours. ]</p>
+    </div>
+    <div class="about-contact">
+      <h3>Contact Us</h3>
+      <div class="contact-row"><span class="contact-label">Name</span><span class="contact-value">—</span></div>
+      <div class="contact-row"><span class="contact-label">Phone</span><span class="contact-value">—</span></div>
+      <div class="contact-row"><span class="contact-label">Email</span><span class="contact-value">—</span></div>
+    </div>
+    <div class="thankyou">
+      <h3>🙏 Thank You</h3>
+      <p>Thank you for visiting MyCollege. We hope this tool helps every student make a more informed decision about their future. Your success is our mission.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Data from <strong>NIRF 2024-25</strong> &amp; official placement reports &nbsp;·&nbsp;
+     <strong>MyCollege</strong> © 2025 &nbsp;·&nbsp; Built for students across India</p>
+</footer>
+
+<script>
+
+// ═══════════════════════════════════════════════════
+//  MyCollege — 277 NIRF-ranked institutions
+// ═══════════════════════════════════════════════════
+const DB=[
+// ── IITs (All 23) ─────────────────────────────────────────────────────────
+{n:"IIT Madras",s:"IIT Madras",r:1,c:"Engineering",p:85,tp:234,ap:24,rec:["Google","Goldman Sachs","DE Shaw","McKinsey","Intel"],crs:["B.Tech CSE","B.Tech EE","B.Tech ME","M.Tech","MBA"],f:"#1 in India 9 years running; top QS Asian engineering rank",uc:"Naval Architecture & Ocean Engineering, Applied Mechanics"},
+{n:"IIT Delhi",s:"IIT Delhi",r:2,c:"Engineering",p:84,tp:246,ap:28,rec:["Microsoft","Google","Goldman Sachs","Amazon","Barclays"],crs:["B.Tech CSE","B.Tech EE","B.Tech ME","B.Tech Civil","MBA"],f:"Most international offers among all IITs; 50+ in 2024-25",uc:"Biochemical Engineering & Biotechnology, Polymer Science"},
+{n:"IIT Bombay",s:"IIT Bombay",r:3,c:"Engineering",p:76,tp:225,ap:22,rec:["Google","Uber","IBM","Microsoft","Goldman Sachs"],crs:["B.Tech CSE","B.Tech EE","B.Tech ME","B.Des","MBA"],f:"Iconic entrepreneurship hub; top global QS engineering rank",uc:"Energy Science & Engineering, Educational Technology (M.Tech)"},
+{n:"IIT Kanpur",s:"IIT Kanpur",r:4,c:"Engineering",p:80,tp:204,ap:22,rec:["Google","Microsoft","Goldman Sachs","Qualcomm","Amazon"],crs:["B.Tech CSE","B.Tech EE","B.Tech AE","B.Tech ME","MBA"],f:"Pioneer of computer science education in India",uc:"Aerospace Engineering, Cognitive Science (M.Sc)"},
+{n:"IIT Kharagpur",s:"IIT Kharagpur",r:5,c:"Engineering",p:78,tp:182,ap:20,rec:["Microsoft","Amazon","Qualcomm","Intel","Samsung"],crs:["B.Tech CSE","B.Tech ME","B.Tech EE","Law","MBA"],f:"Oldest IIT; widest disciplines including law & management",uc:"Agricultural & Food Engineering, Ocean Engineering, Mining Engg"},
+{n:"IIT Roorkee",s:"IIT Roorkee",r:6,c:"Engineering",p:77,tp:172,ap:19,rec:["Microsoft","Amazon","Nvidia","Cisco","Qualcomm"],crs:["B.Tech CSE","B.Tech Civil","B.Tech EE","B.Tech ME","MBA"],f:"Asia's oldest technical university; established 1847",uc:"Paper & Pulp Technology, Earthquake Engineering"},
+{n:"IIT Guwahati",s:"IIT Guwahati",r:7,c:"Engineering",p:72,tp:152,ap:17,rec:["Microsoft","Google","Amazon","Infosys","TCS"],crs:["B.Tech CSE","B.Tech EE","B.Tech ME","B.Tech Civil","M.Tech"],f:"Premier engineering institute for North-East India",uc:"Biosciences & Bioengineering, Design (B.Des)"},
+{n:"IIT Hyderabad",s:"IIT Hyderabad",r:8,c:"Engineering",p:74,tp:142,ap:18,rec:["Google","Microsoft","Amazon","Qualcomm","Texas Instruments"],crs:["B.Tech CSE","B.Tech EE","B.Tech ME","B.Tech AI","M.Tech"],f:"First IIT with dedicated B.Tech in Artificial Intelligence",uc:"Artificial Intelligence (standalone B.Tech), Materials Science"},
+{n:"IIT BHU Varanasi",s:"IIT BHU",r:10,c:"Engineering",p:74,tp:132,ap:16,rec:["Amazon","Microsoft","Goldman Sachs","Texas Instruments","Cisco"],crs:["B.Tech CSE","B.Tech ME","B.Tech Metallurgy","B.Tech Mining","M.Tech"],f:"One of India's oldest technical institutions; established 1919",uc:"Ceramic Engineering, Mining Engineering, Metallurgical Engg"},
+{n:"IIT Indore",s:"IIT Indore",r:11,c:"Engineering",p:70,tp:112,ap:15,rec:["Microsoft","Amazon","Google","Qualcomm","Texas Instruments"],crs:["B.Tech CSE","B.Tech EE","B.Tech ME","B.Tech Civil","M.Tech"],f:"Young IIT with rapidly growing research and placements",uc:"Astronomy, Astrophysics & Space Engineering (M.Sc)"},
+{n:"IIT Patna",s:"IIT Patna",r:14,c:"Engineering",p:68,tp:102,ap:13,rec:["Amazon","Microsoft","TCS","Infosys","Wipro"],crs:["B.Tech CSE","B.Tech EE","B.Tech ME","B.Tech Civil","M.Tech"],f:"New-generation IIT; strong growth in research and industry",uc:"—"},
+{n:"IIT Mandi",s:"IIT Mandi",r:18,c:"Engineering",p:66,tp:92,ap:12,rec:["Microsoft","Amazon","TCS","Infosys","Wipro"],crs:["B.Tech CSE","B.Tech EE","B.Tech ME","B.Tech Civil","M.Tech"],f:"Unique curriculum focusing on sustainability and local innovation",uc:"Sustainable Design (interdisciplinary B.Tech)"},
+{n:"IIT Jodhpur",s:"IIT Jodhpur",r:31,c:"Engineering",p:67,tp:97,ap:13,rec:["Amazon","Microsoft","Infosys","TCS","Wipro"],crs:["B.Tech CSE","B.Tech EE","B.Tech ME","B.Tech AI","M.Tech"],f:"Strong in AI and data science; growing placement trajectory",uc:"Artificial Intelligence (dedicated B.Tech)"},
+{n:"IIT Gandhinagar",s:"IIT Gandhinagar",r:27,c:"Engineering",p:68,tp:97,ap:13,rec:["Google","Amazon","Microsoft","Goldman Sachs","Qualcomm"],crs:["B.Tech CSE","B.Tech EE","B.Tech ME","B.Tech Civil","M.Tech"],f:"Known for liberal arts integration in engineering education",uc:"Cognitive Science (B.Tech), Heritage & Society"},
+{n:"IIT Tirupati",s:"IIT Tirupati",r:34,c:"Engineering",p:64,tp:82,ap:11,rec:["Amazon","TCS","Infosys","Microsoft","Wipro"],crs:["B.Tech CSE","B.Tech EE","B.Tech ME","B.Tech Civil","M.Tech"],f:"New IIT with fast-growing placements and research statistics",uc:"—"},
+{n:"IIT Bhubaneswar",s:"IIT Bhubaneswar",r:37,c:"Engineering",p:65,tp:87,ap:12,rec:["Amazon","Microsoft","TCS","Wipro","Infosys"],crs:["B.Tech CSE","B.Tech EE","B.Tech ME","B.Tech Civil","M.Tech"],f:"Focuses on technology-driven development for Eastern India",uc:"Earth, Ocean & Climate Sciences (M.Tech)"},
+{n:"IIT Palakkad",s:"IIT Palakkad",r:40,c:"Engineering",p:63,tp:77,ap:11,rec:["TCS","Infosys","Wipro","Amazon","Microsoft"],crs:["B.Tech CSE","B.Tech EE","B.Tech ME","B.Tech Civil","M.Tech"],f:"Innovative teaching model with strong interdisciplinary focus",uc:"—"},
+{n:"IIT Jammu",s:"IIT Jammu",r:51,c:"Engineering",p:61,tp:72,ap:10,rec:["TCS","Infosys","Wipro","Amazon","HCL"],crs:["B.Tech CSE","B.Tech EE","B.Tech ME","B.Tech Civil","M.Tech"],f:"Growing IIT focused on regional development; improving placements",uc:"—"},
+{n:"IIT (ISM) Dhanbad",s:"IIT Dhanbad",r:23,c:"Engineering",p:70,tp:102,ap:14,rec:["ONGC","Coal India","TATA Steel","Amazon","Microsoft"],crs:["B.Tech CSE","B.Tech ME","B.Tech Mining","B.Tech Petroleum","M.Tech"],f:"Top institution for mining, petroleum & mineral engineering",uc:"Petroleum Engineering, Mining Engineering, Applied Geology"},
+{n:"IIT Dharwad",s:"IIT Dharwad",r:59,c:"Engineering",p:60,tp:67,ap:9,rec:["TCS","Infosys","Wipro","Amazon","HCL"],crs:["B.Tech CSE","B.Tech EE","B.Tech ME","B.Tech Civil","M.Tech"],f:"Newest-generation IIT; growing steadily in NIRF rankings",uc:"—"},
+{n:"IIT Ropar",s:"IIT Ropar",r:44,c:"Engineering",p:62,tp:74,ap:10,rec:["Amazon","TCS","Infosys","Microsoft","Wipro"],crs:["B.Tech CSE","B.Tech EE","B.Tech ME","B.Tech Civil","M.Tech"],f:"Strong emphasis on research and industry collaboration",uc:"Biomedical Engineering (B.Tech)"},
+{n:"IIT Goa",s:"IIT Goa",r:55,c:"Engineering",p:59,tp:67,ap:9,rec:["TCS","Infosys","Wipro","Amazon","HCL"],crs:["B.Tech CSE","B.Tech EE","B.Tech ME","B.Tech Math & Computing","M.Tech"],f:"Emerging IIT with scenic campus and growing industry connections",uc:"Mathematics & Computing (B.Tech)"},
+{n:"IIT Bhilai",s:"IIT Bhilai",r:60,c:"Engineering",p:58,tp:64,ap:9,rec:["TCS","Infosys","Wipro","HCL","Amazon"],crs:["B.Tech CSE","B.Tech EE","B.Tech ME","B.Tech Civil","M.Tech"],f:"Newest IIT focused on Central India's development",uc:"—"},
+// ── NITs (All 31) ─────────────────────────────────────────────────────────
+{n:"NIT Trichy",s:"NIT Trichy",r:9,c:"Engineering",p:85,tp:122,ap:16,rec:["TCS","Wipro","Amazon","Microsoft","L&T","Infosys"],crs:["B.Tech CSE","B.Tech EE","B.Tech ME","B.Tech Civil","M.Tech"],f:"India's #1 NIT for over a decade; excellent placement record",uc:"Production Engineering (B.Tech)"},
+{n:"NIT Rourkela",s:"NIT Rourkela",r:12,c:"Engineering",p:80,tp:97,ap:14,rec:["TCS","Infosys","Wipro","Amazon","TATA Steel"],crs:["B.Tech CSE","B.Tech ME","B.Tech EE","B.Tech Mining","M.Tech"],f:"Top NIT; strong in metallurgy and mining besides CS",uc:"Ceramic Engineering, Mining Engineering"},
+{n:"NIT Warangal",s:"NIT Warangal",r:13,c:"Engineering",p:83,tp:102,ap:15,rec:["Microsoft","Amazon","TCS","Infosys","Deloitte"],crs:["B.Tech CSE","B.Tech EE","B.Tech ME","B.Tech Civil","M.Tech"],f:"First NIT established in India (1959); strong in core engineering",uc:"Biotechnology (B.Tech)"},
+{n:"NIT Calicut",s:"NIT Calicut",r:16,c:"Engineering",p:80,tp:92,ap:13,rec:["TCS","Wipro","Infosys","Amazon","Cognizant"],crs:["B.Tech CSE","B.Tech EE","B.Tech ME","B.Tech Civil","M.Tech"],f:"Kerala's top NIT; consistently strong IT placement record",uc:"Architecture (B.Arch, 5-year)"},
+{n:"NIT Surathkal",s:"NIT Surathkal",r:17,c:"Engineering",p:79,tp:92,ap:13,rec:["TCS","Infosys","Wipro","Oracle","Cisco","Amazon"],crs:["B.Tech CSE","B.Tech EE","B.Tech ME","B.Tech Chemical","M.Tech"],f:"Top 5 NIT; strong in core engineering and IT sectors",uc:"Mining Engineering (M.Tech)"},
+{n:"NIT Durgapur",s:"NIT Durgapur",r:19,c:"Engineering",p:76,tp:77,ap:11,rec:["TCS","Wipro","Infosys","Amazon","Cognizant"],crs:["B.Tech CSE","B.Tech EE","B.Tech ME","B.Tech Chemical","M.Tech"],f:"Strong industry ties with steel & manufacturing in Eastern India",uc:"Biotechnology, Chemical Engineering"},
+{n:"MNNIT Allahabad",s:"MNNIT Allahabad",r:24,c:"Engineering",p:75,tp:72,ap:10,rec:["TCS","Infosys","Wipro","Amazon","HCL"],crs:["B.Tech CSE","B.Tech EE","B.Tech ME","B.Tech Civil","M.Tech"],f:"Central India's top NIT with a strong alumni network",uc:"Information Technology (B.Tech)"},
+{n:"MNIT Jaipur",s:"MNIT Jaipur",r:25,c:"Engineering",p:74,tp:72,ap:10,rec:["TCS","Infosys","Wipro","Cognizant","Amazon"],crs:["B.Tech CSE","B.Tech EE","B.Tech ME","B.Tech Civil","M.Tech"],f:"Rajasthan's top engineering institution; good industry connections",uc:"Metallurgical & Materials Engineering"},
+{n:"NIT Hamirpur",s:"NIT Hamirpur",r:29,c:"Engineering",p:68,tp:57,ap:8,rec:["TCS","Infosys","Wipro","HCL","Cognizant"],crs:["B.Tech CSE","B.Tech EE","B.Tech ME","B.Tech Civil","M.Tech"],f:"Himalayan campus; growing placement record in IT sector",uc:"—"},
+{n:"NIT Kurukshetra",s:"NIT Kurukshetra",r:32,c:"Engineering",p:70,tp:62,ap:9,rec:["TCS","Infosys","Wipro","HCL","Accenture"],crs:["B.Tech CSE","B.Tech EE","B.Tech ME","B.Tech Civil","M.Tech"],f:"Haryana's top NIT; strong in core engineering and software",uc:"—"},
+{n:"NIT Silchar",s:"NIT Silchar",r:35,c:"Engineering",p:70,tp:62,ap:8,rec:["TCS","Infosys","Wipro","Amazon","HCL"],crs:["B.Tech CSE","B.Tech EE","B.Tech ME","B.Tech Civil","M.Tech"],f:"North-East India's leading NIT; improving placement statistics",uc:"Electronics & Instrumentation Engineering"},
+{n:"NIT Raipur",s:"NIT Raipur",r:46,c:"Engineering",p:66,tp:57,ap:7,rec:["TCS","Infosys","Wipro","HCL","Cognizant"],crs:["B.Tech CSE","B.Tech EE","B.Tech ME","B.Tech Mining","M.Tech"],f:"Central India's NIT; growing IT and core engineering placements",uc:"Biomedical Engineering, Mining Engineering"},
+{n:"NIT Patna",s:"NIT Patna",r:49,c:"Engineering",p:65,tp:54,ap:7,rec:["TCS","Infosys","Wipro","Amazon","HCL"],crs:["B.Tech CSE","B.Tech EE","B.Tech ME","B.Tech Civil","M.Tech"],f:"Bihar's top engineering institution; improving placement record",uc:"—"},
+{n:"NIT Agartala",s:"NIT Agartala",r:56,c:"Engineering",p:63,tp:47,ap:6,rec:["TCS","Infosys","Wipro","HCL","Cognizant"],crs:["B.Tech CSE","B.Tech EE","B.Tech ME","B.Tech Civil","M.Tech"],f:"Tripura's premier technical institution; focus on North-East",uc:"—"},
+{n:"NIT Delhi",s:"NIT Delhi",r:63,c:"Engineering",p:65,tp:57,ap:8,rec:["TCS","Infosys","Wipro","Amazon","HCL"],crs:["B.Tech CSE","B.Tech EE","B.Tech ME","B.Tech Civil","M.Tech"],f:"Youngest NIT in India's capital; growing placements",uc:"—"},
+{n:"VNIT Nagpur",s:"VNIT Nagpur",r:64,c:"Engineering",p:74,tp:67,ap:9,rec:["TCS","Infosys","Wipro","Cognizant","L&T"],crs:["B.Tech CSE","B.Tech EE","B.Tech ME","B.Tech Civil","M.Tech"],f:"Maharashtra's top NIT; strong in civil and core engineering",uc:"Architecture (B.Arch)"},
+{n:"SVNIT Surat",s:"SVNIT Surat",r:35,c:"Engineering",p:72,tp:64,ap:9,rec:["TCS","Infosys","Wipro","Cognizant","Reliance"],crs:["B.Tech CSE","B.Tech EE","B.Tech ME","B.Tech Chemical","M.Tech"],f:"Gujarat's top NIT; strong in chemical engineering",uc:"Chemical Engineering (specialized M.Tech streams)"},
+{n:"MANIT Bhopal",s:"MANIT Bhopal",r:37,c:"Engineering",p:70,tp:62,ap:8,rec:["TCS","Infosys","Wipro","HCL","Cognizant"],crs:["B.Tech CSE","B.Tech EE","B.Tech ME","B.Tech Civil","M.Tech"],f:"Madhya Pradesh's leading NIT; growing placements",uc:"Architecture (B.Arch, 5-year)"},
+{n:"NIT Goa",s:"NIT Goa",r:48,c:"Engineering",p:65,tp:52,ap:7,rec:["TCS","Infosys","Wipro","Amazon","HCL"],crs:["B.Tech CSE","B.Tech EE","B.Tech ME","B.Tech Civil","M.Tech"],f:"Goa's premier NIT; scenic campus and growing record",uc:"—"},
+{n:"NIT Srinagar",s:"NIT Srinagar",r:50,c:"Engineering",p:62,tp:47,ap:6,rec:["TCS","Infosys","Wipro","HCL","Cognizant"],crs:["B.Tech CSE","B.Tech EE","B.Tech ME","B.Tech Civil","M.Tech"],f:"J&K's top engineering institution",uc:"—"},
+{n:"NIT Jalandhar",s:"NIT Jalandhar",r:33,c:"Engineering",p:71,tp:64,ap:9,rec:["TCS","Infosys","Wipro","Amazon","HCL"],crs:["B.Tech CSE","B.Tech EE","B.Tech ME","B.Tech Civil","M.Tech"],f:"Punjab's NIT; strong in Textile Technology and Electronics",uc:"Textile Technology (B.Tech), Industrial & Production Engg"},
+{n:"NIT Uttarakhand",s:"NIT Uttarakhand",r:65,c:"Engineering",p:55,tp:40,ap:5,rec:["TCS","Infosys","Wipro","HCL","Accenture"],crs:["B.Tech CSE","B.Tech EE","B.Tech ME","B.Tech Civil","M.Tech"],f:"Young NIT; improving placement statistics",uc:"—"},
+{n:"NIT Manipur",s:"NIT Manipur",r:60,c:"Engineering",p:58,tp:42,ap:5,rec:["TCS","Infosys","Wipro","HCL","Cognizant"],crs:["B.Tech CSE","B.Tech EE","B.Tech ME","B.Tech Civil","M.Tech"],f:"North-East NIT; focused on regional development",uc:"—"},
+{n:"NIT Meghalaya",s:"NIT Meghalaya",r:75,c:"Engineering",p:52,tp:34,ap:5,rec:["TCS","Infosys","Wipro","HCL","Cognizant"],crs:["B.Tech CSE","B.Tech EE","B.Tech ME","B.Tech Civil","M.Tech"],f:"North-East India NIT; focused on regional tech development",uc:"—"},
+{n:"NIT Andhra Pradesh",s:"NIT AP",r:70,c:"Engineering",p:58,tp:40,ap:5,rec:["TCS","Infosys","Wipro","HCL","Amazon"],crs:["B.Tech CSE","B.Tech EE","B.Tech ME","B.Tech Civil","M.Tech"],f:"Andhra Pradesh's NIT; growing NIRF rank year on year",uc:"—"},
+{n:"NIT Puducherry",s:"NIT Puducherry",r:72,c:"Engineering",p:55,tp:37,ap:5,rec:["TCS","Infosys","Wipro","HCL","Cognizant"],crs:["B.Tech CSE","B.Tech EE","B.Tech ME","B.Tech Civil","M.Tech"],f:"Puducherry's NIT; located near French heritage town",uc:"—"},
+{n:"NIT Sikkim",s:"NIT Sikkim",r:82,c:"Engineering",p:48,tp:30,ap:4,rec:["TCS","Infosys","Wipro","HCL","Cognizant"],crs:["B.Tech CSE","B.Tech EE","B.Tech ME","B.Tech Civil","M.Tech"],f:"North-East NIT in scenic Sikkim; growing placements",uc:"—"},
+{n:"NIT Nagaland",s:"NIT Nagaland",r:80,c:"Engineering",p:48,tp:30,ap:4,rec:["TCS","Infosys","Wipro","HCL","Cognizant"],crs:["B.Tech CSE","B.Tech EE","B.Tech ME","B.Tech Civil","M.Tech"],f:"North-East NIT; growing tech ecosystem in Nagaland",uc:"—"},
+{n:"NIT Mizoram",s:"NIT Mizoram",r:85,c:"Engineering",p:45,tp:28,ap:4,rec:["TCS","Infosys","Wipro","HCL","Cognizant"],crs:["B.Tech CSE","B.Tech EE","B.Tech ME","B.Tech Civil","M.Tech"],f:"North-East NIT in scenic Mizoram; improving placements",uc:"—"},
+{n:"NIT Arunachal Pradesh",s:"NIT Arunachal Pradesh",r:88,c:"Engineering",p:42,tp:26,ap:4,rec:["TCS","Infosys","Wipro","HCL","Cognizant"],crs:["B.Tech CSE","B.Tech EE","B.Tech ME","B.Tech Civil","M.Tech"],f:"India's easternmost NIT; focused on North-East development",uc:"—"},
+// ── IIITs ─────────────────────────────────────────────────────────────────
+{n:"IIIT Hyderabad",s:"IIIT Hyderabad",r:21,c:"Engineering",p:92,tp:132,ap:20,rec:["Google","Microsoft","Goldman Sachs","DE Shaw","Meta","Qualcomm"],crs:["B.Tech CSE","B.Tech ECE","B.Tech CSD","M.Tech CS","Dual Degree"],f:"India's #1 IIIT; top CS research and near-100% placement rate",uc:"Computational Linguistics, CS & Digital Humanities"},
+{n:"IIIT Delhi",s:"IIIT Delhi",r:38,c:"Engineering",p:88,tp:92,ap:15,rec:["Microsoft","Google","Amazon","Goldman Sachs","Samsung"],crs:["B.Tech CSE","B.Tech ECE","B.Tech CB","M.Tech CS","M.Tech ECE"],f:"Delhi's top IIIT; strong focus on research and entrepreneurship",uc:"Computational Biology (B.Tech CB), Human-Centred Design"},
+{n:"IIIT Allahabad",s:"IIIT Allahabad",r:53,c:"Engineering",p:82,tp:77,ap:12,rec:["TCS","Infosys","Microsoft","Amazon","Samsung"],crs:["B.Tech IT","B.Tech ECE","M.Tech CS","M.Tech ECE","MBA IT"],f:"One of India's oldest IIITs; strong IT sector placements",uc:"Information Technology (IT, distinct from CS)"},
+{n:"IIIT Bangalore",s:"IIIT Bangalore",r:58,c:"Engineering",p:85,tp:82,ap:13,rec:["Microsoft","Google","Amazon","Accenture","Oracle"],crs:["M.Tech CS","M.Tech ECE","M.Tech DS","PhD CS","iMTech"],f:"Research-focused IIIT; strong MNC recruitment in Bangalore hub",uc:"iMTech (5-year integrated M.Tech, unique programme)"},
+{n:"ABV-IIITM Gwalior",s:"IIIT Gwalior",r:55,c:"Engineering",p:78,tp:72,ap:11,rec:["TCS","Infosys","Microsoft","Amazon","Wipro"],crs:["B.Tech IT","B.Tech ICT","M.Tech CS","MBA IT","PhD"],f:"One of India's oldest IIITs; strong in IT and management",uc:"Information & Communication Technology (ICT, B.Tech)"},
+{n:"IIIT Pune",s:"IIIT Pune",r:60,c:"Engineering",p:75,tp:67,ap:10,rec:["TCS","Infosys","Wipro","Amazon","Cognizant"],crs:["B.Tech CSE","B.Tech ECE","M.Tech CS","M.Tech ECE","PhD"],f:"Maharashtra's IIIT; strong industry ties in Pune tech hub",uc:"—"},
+{n:"IIIT Sri City",s:"IIIT Sri City",r:65,c:"Engineering",p:72,tp:62,ap:9,rec:["TCS","Infosys","Wipro","Amazon","Cognizant"],crs:["B.Tech CSE","B.Tech ECE","B.Tech EE","M.Tech CS","M.Tech ECE"],f:"Andhra Pradesh's IIIT; growing placements in southern tech corridor",uc:"—"},
+{n:"IIIT Lucknow",s:"IIIT Lucknow",r:72,c:"Engineering",p:68,tp:57,ap:8,rec:["TCS","Infosys","Wipro","Amazon","HCL"],crs:["B.Tech CSE","B.Tech ECE","M.Tech CS","M.Tech ECE","PhD"],f:"UP's IIIT; growing placement track record",uc:"—"},
+{n:"IIIT Kota",s:"IIIT Kota",r:70,c:"Engineering",p:68,tp:57,ap:8,rec:["TCS","Infosys","Wipro","Amazon","HCL"],crs:["B.Tech CSE","B.Tech ECE","M.Tech CS","M.Tech ECE","PhD"],f:"Rajasthan's IIIT; growing placement and research record",uc:"—"},
+{n:"IIIT Vadodara",s:"IIIT Vadodara",r:68,c:"Engineering",p:68,tp:57,ap:8,rec:["TCS","Infosys","Wipro","Amazon","HCL"],crs:["B.Tech CSE","B.Tech ECE","M.Tech CS","M.Tech ECE","PhD"],f:"Gujarat's IIIT; improving placement statistics",uc:"—"},
+{n:"IIIT Nagpur",s:"IIIT Nagpur",r:73,c:"Engineering",p:66,tp:54,ap:8,rec:["TCS","Infosys","Wipro","Amazon","HCL"],crs:["B.Tech CSE","B.Tech ECE","M.Tech CS","M.Tech ECE","PhD"],f:"Maharashtra's IIIT; central India tech focus",uc:"—"},
+{n:"IIIT Naya Raipur",s:"IIIT Naya Raipur",r:74,c:"Engineering",p:65,tp:52,ap:7,rec:["TCS","Infosys","Wipro","Amazon","HCL"],crs:["B.Tech CSE","B.Tech ECE","M.Tech CS","M.Tech ECE","PhD"],f:"Chhattisgarh's IIIT; growing industry connections",uc:"—"},
+{n:"IIIT Ranchi",s:"IIIT Ranchi",r:76,c:"Engineering",p:64,tp:50,ap:7,rec:["TCS","Infosys","Wipro","Amazon","HCL"],crs:["B.Tech CSE","B.Tech ECE","M.Tech CS","M.Tech ECE","PhD"],f:"Jharkhand's IIIT; focus on eastern India development",uc:"—"},
+{n:"IIIT Bhopal",s:"IIIT Bhopal",r:78,c:"Engineering",p:63,tp:50,ap:7,rec:["TCS","Infosys","Wipro","Amazon","HCL"],crs:["B.Tech CSE","B.Tech ECE","M.Tech CS","M.Tech ECE","PhD"],f:"Madhya Pradesh's IIIT; improving placement record",uc:"—"},
+{n:"IIIT Kalyani",s:"IIIT Kalyani",r:80,c:"Engineering",p:62,tp:48,ap:7,rec:["TCS","Infosys","Wipro","Amazon","HCL"],crs:["B.Tech CSE","B.Tech ECE","M.Tech CS","M.Tech ECE","PhD"],f:"West Bengal's IIIT; focus on eastern India tech growth",uc:"—"},
+{n:"IIIT Kancheepuram",s:"IIIT Kancheepuram",r:75,c:"Engineering",p:65,tp:52,ap:7,rec:["TCS","Infosys","Wipro","Cognizant","HCL"],crs:["B.Tech IT","B.Tech ECE","M.Tech CS","M.Tech ECE","PhD"],f:"Tamil Nadu's IIIT; proximity to Chennai IT corridor",uc:"—"},
+{n:"IIIT Una",s:"IIIT Una",r:82,c:"Engineering",p:60,tp:46,ap:6,rec:["TCS","Infosys","Wipro","Amazon","HCL"],crs:["B.Tech CSE","B.Tech ECE","M.Tech CS","M.Tech ECE","PhD"],f:"Himachal Pradesh's IIIT; scenic hill campus",uc:"—"},
+// ── BITS & Top Private Engineering ────────────────────────────────────────
+{n:"BITS Pilani",s:"BITS Pilani",r:28,c:"Engineering",p:90,tp:152,ap:18,rec:["Google","Microsoft","Goldman Sachs","Qualcomm","Amazon","Samsung"],crs:["B.E. CS","B.E. EEE","B.E. Mech","B.Pharma","MSc Maths","Dual Degree"],f:"Best private engineering college; unique Practice School internship",uc:"Biological Sciences (Dual Degree), Pharmacy (B.Pharma)"},
+{n:"BITS Pilani Goa Campus",s:"BITS Goa",r:40,c:"Engineering",p:85,tp:132,ap:16,rec:["Google","Microsoft","Amazon","Qualcomm","Samsung"],crs:["B.E. CS","B.E. EEE","B.E. Mech","B.E. Chemical","MSc"],f:"BITS Pilani's Goa campus; same curriculum with scenic setting",uc:"Dual Degree (Engg + MSc, unique flexible path)"},
+{n:"BITS Pilani Hyderabad Campus",s:"BITS Hyderabad",r:42,c:"Engineering",p:84,tp:127,ap:15,rec:["Google","Microsoft","Amazon","Goldman Sachs","Qualcomm"],crs:["B.E. CS","B.E. EEE","B.E. Mech","B.E. Chemical","MSc"],f:"BITS Pilani's Hyderabad campus in Telangana tech hub",uc:"—"},
+{n:"VIT Vellore",s:"VIT Vellore",r:15,c:"Engineering",p:82,tp:90,ap:10,rec:["TCS","Microsoft","Amazon","Intel","PayPal","Cisco","LTIMindtree"],crs:["B.Tech CSE","B.Tech ECE","B.Tech IT","B.Tech Mech","B.Tech Civil"],f:"Largest private engineering campus; 900+ recruiters annually",uc:"Biomedical Engineering, Fashion Technology (B.Tech)"},
+{n:"VIT Chennai",s:"VIT Chennai",r:54,c:"Engineering",p:78,tp:62,ap:8,rec:["TCS","Microsoft","Amazon","Intel","PayPal"],crs:["B.Tech CSE","B.Tech ECE","B.Tech IT","B.Tech Mech","MBA"],f:"VIT's Chennai campus; strong IT sector placement record",uc:"—"},
+{n:"Thapar Institute of Engineering and Technology",s:"Thapar Institute",r:26,c:"Engineering",p:80,tp:87,ap:13,rec:["Microsoft","Amazon","TCS","Infosys","Google"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Chemical","MBA"],f:"Top private engineering college in Punjab; strong CSE placements",uc:"Chemical Engineering (specialized research)"},
+{n:"PSG College of Technology",s:"PSG Tech",r:30,c:"Engineering",p:78,tp:62,ap:9,rec:["TCS","Wipro","Infosys","Cognizant","Amazon"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.Tech"],f:"Coimbatore's premier autonomous engineering college",uc:"Robotics & Automation, Production Engineering"},
+{n:"SASTRA Deemed University",s:"SASTRA",r:33,c:"Engineering",p:75,tp:57,ap:8,rec:["TCS","Infosys","Wipro","Cognizant","HCL"],crs:["B.Tech CSE","B.Tech ECE","B.Tech ME","B.Pharma","MBA"],f:"Tamil Nadu's top deemed university; strong in CS and pharma",uc:"Pharmacy (B.Pharma + Pharm.D integrated)"},
+{n:"BIT Mesra",s:"BIT Mesra",r:52,c:"Engineering",p:72,tp:62,ap:8,rec:["TCS","Infosys","Wipro","Amazon","Cognizant"],crs:["B.Tech CSE","B.Tech ME","B.Tech ECE","B.Tech Civil","M.Tech"],f:"Jharkhand's oldest private engineering college; diverse programs",uc:"Space Engineering & Rocketry (M.Tech)"},
+{n:"Manipal Institute of Technology",s:"MIT Manipal",r:39,c:"Engineering",p:73,tp:57,ap:8,rec:["Infosys","TCS","Wipro","Cognizant","Accenture","Capgemini"],crs:["B.Tech CSE","B.Tech ME","B.Tech ECE","B.Tech Civil","MBA"],f:"One of India's oldest private engineering colleges; est. 1957",uc:"Aeronautical Engineering, Printing & Media Technology"},
+{n:"Nirma University",s:"Nirma University",r:41,c:"Engineering",p:76,tp:62,ap:9,rec:["Infosys","TCS","L&T","Amazon","Microsoft"],crs:["B.Tech CSE","B.Tech ME","B.Tech ECE","B.Tech Chemical","MBA"],f:"Gujarat's top private university; strong in chemical engineering",uc:"Chemical Engineering (specialized research programmes)"},
+{n:"DA-IICT Gandhinagar",s:"DA-IICT",r:36,c:"Engineering",p:82,tp:82,ap:13,rec:["Google","Microsoft","Amazon","Qualcomm","Samsung"],crs:["B.Tech ICT","B.Tech MnC","M.Tech ICT","M.Sc DS","PhD ICT"],f:"Specialized in ICT; small campus with excellent placement ratio",uc:"ICT (Information & Communication Technology, B.Tech)"},
+{n:"RV College of Engineering",s:"RVCE Bangalore",r:42,c:"Engineering",p:76,tp:67,ap:9,rec:["Amazon","Microsoft","TCS","Infosys","Samsung"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.Tech"],f:"One of Bangalore's most prestigious engineering colleges",uc:"—"},
+{n:"BMS College of Engineering",s:"BMSCE Bangalore",r:45,c:"Engineering",p:73,tp:60,ap:8,rec:["TCS","Infosys","Wipro","Amazon","Capgemini"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.Tech"],f:"Bangalore's oldest private engineering college; est. 1946",uc:"Industrial Engineering & Management"},
+{n:"MS Ramaiah Institute of Technology",s:"MSRIT Bangalore",r:48,c:"Engineering",p:70,tp:57,ap:8,rec:["TCS","Infosys","Wipro","Cognizant","Accenture"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.Tech"],f:"Bangalore's top autonomous college for core engineering",uc:"—"},
+{n:"Thiagarajar College of Engineering",s:"TCE Madurai",r:43,c:"Engineering",p:73,tp:54,ap:7,rec:["TCS","Wipro","Infosys","Cognizant","HCL"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.Tech"],f:"One of Tamil Nadu's oldest autonomous engineering colleges",uc:"—"},
+{n:"Coimbatore Institute of Technology",s:"CIT Coimbatore",r:47,c:"Engineering",p:72,tp:52,ap:7,rec:["TCS","Wipro","Infosys","Cognizant","HCL"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.Tech"],f:"Tamil Nadu's top autonomous engineering college",uc:"—"},
+{n:"PES University",s:"PES University",r:50,c:"Engineering",p:74,tp:67,ap:9,rec:["Amazon","Microsoft","Flipkart","Infosys","Wipro"],crs:["B.Tech CSE","B.Tech ECE","B.Tech ME","B.Tech Civil","MBA"],f:"Bangalore's top private engineering college; strong CS placements",uc:"—"},
+{n:"College of Engineering Pune",s:"CoEP Pune",r:65,c:"Engineering",p:76,tp:62,ap:9,rec:["TCS","Infosys","Wipro","Cognizant","Accenture"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.Tech"],f:"Maharashtra's oldest and most prestigious state engineering college",uc:"Metallurgy & Materials Science"},
+{n:"DTU Delhi",s:"DTU Delhi",r:20,c:"Engineering",p:78,tp:82,ap:11,rec:["Microsoft","Amazon","Infosys","TCS","Deloitte","Samsung"],crs:["B.Tech CSE","B.Tech ECE","B.Tech ME","B.Tech Civil","MBA"],f:"Best state-funded technical university in Delhi-NCR",uc:"Environmental Engineering (B.Tech), Polymer Science"},
+{n:"NSUT Delhi",s:"NSUT Delhi",r:57,c:"Engineering",p:76,tp:77,ap:10,rec:["Microsoft","Amazon","Deloitte","TCS","Infosys","Adobe"],crs:["B.Tech CSE","B.Tech IT","B.Tech ECE","B.Tech ME","MBA"],f:"Top state engineering university in Delhi after DTU",uc:"Information Technology (B.Tech IT)"},
+{n:"Punjab Engineering College",s:"PEC Chandigarh",r:45,c:"Engineering",p:74,tp:67,ap:9,rec:["Microsoft","Amazon","TCS","Infosys","Nvidia"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.Tech"],f:"Chandigarh's premier state engineering college; est. 1947",uc:"Metallurgical Engineering, Aerospace Engineering"},
+{n:"Jadavpur University",s:"Jadavpur Univ",r:22,c:"Engineering",p:75,tp:82,ap:10,rec:["TCS","Infosys","Wipro","Cognizant","Amazon"],crs:["B.E. CSE","B.E. EE","B.E. ME","B.Pharma","Fine Arts"],f:"Only government college in NIRF Engineering top 25",uc:"Film Studies, Printing Engineering, Comparative Literature"},
+{n:"JSS Science and Technology University",s:"JSS STU Mysuru",r:69,c:"Engineering",p:72,tp:54,ap:7,rec:["TCS","Wipro","Infosys","Cognizant","HCL"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.Tech"],f:"Karnataka's top private technical university; est. 1963",uc:"—"},
+{n:"SSN College of Engineering",s:"SSN College",r:67,c:"Engineering",p:80,tp:54,ap:7,rec:["TCS","Wipro","Infosys","Cognizant","HCL"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.Tech"],f:"Chennai's top autonomous engineering college; strong industry ties",uc:"—"},
+{n:"Sri Venkateswara College of Engineering",s:"SVCE Chennai",r:70,c:"Engineering",p:78,tp:52,ap:7,rec:["TCS","Wipro","Infosys","Cognizant","HCL"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.Tech"],f:"Tamil Nadu's prominent engineering college near Chennai",uc:"—"},
+{n:"Rajalakshmi Engineering College",s:"REC Chennai",r:72,c:"Engineering",p:76,tp:50,ap:7,rec:["TCS","Wipro","Infosys","Cognizant","HCL"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.Tech"],f:"Tamil Nadu autonomous college with strong placement record",uc:"—"},
+{n:"Sri Ramakrishna Engineering College",s:"SREC Coimbatore",r:75,c:"Engineering",p:75,tp:48,ap:7,rec:["TCS","Wipro","Infosys","Cognizant","HCL"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.Tech"],f:"Coimbatore's autonomous college; strong in manufacturing",uc:"—"},
+{n:"Kongu Engineering College",s:"KEC Erode",r:76,c:"Engineering",p:74,tp:46,ap:6,rec:["TCS","Wipro","Infosys","HCL","Cognizant"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.Tech"],f:"Erode's top autonomous engineering college",uc:"—"},
+{n:"GITAM University",s:"GITAM University",r:73,c:"Engineering",p:72,tp:50,ap:7,rec:["TCS","Infosys","Wipro","Cognizant","Accenture"],crs:["B.Tech CSE","B.Tech ECE","B.Tech ME","B.Tech Civil","MBA"],f:"Andhra Pradesh's top deemed university with 3 campuses",uc:"—"},
+{n:"Karunya Institute of Technology and Sciences",s:"Karunya Institute",r:68,c:"Engineering",p:72,tp:48,ap:6,rec:["TCS","Wipro","Infosys","HCL","Cognizant"],crs:["B.Tech CSE","B.Tech ECE","B.Tech ME","B.Tech Civil","MBA"],f:"Coimbatore's Christian deemed university; values-based education",uc:"Bioinformatics, Biomedical Engineering"},
+{n:"Kalasalingam Academy of Research and Education",s:"Kalasalingam Academy",r:74,c:"Engineering",p:70,tp:46,ap:6,rec:["TCS","Wipro","Infosys","HCL","Cognizant"],crs:["B.Tech CSE","B.Tech ECE","B.Tech ME","B.Tech Civil","MBA"],f:"Tamil Nadu deemed university with strong research output",uc:"—"},
+{n:"Sri Eshwar College of Engineering",s:"SECE Coimbatore",r:78,c:"Engineering",p:73,tp:48,ap:6,rec:["TCS","Wipro","Infosys","HCL","Cognizant"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.Tech"],f:"Coimbatore's fast-growing autonomous engineering college",uc:"—"},
+{n:"Amrita School of Engineering",s:"Amrita Engg",r:66,c:"Engineering",p:76,tp:62,ap:8,rec:["TCS","Infosys","Wipro","Cognizant","HCL"],crs:["B.Tech CSE","B.Tech ECE","B.Tech EE","B.Tech ME","M.Tech"],f:"Fastest-rising private engineering college in NIRF rankings",uc:"Cyber Security, Computational Biology"},
+{n:"Dayananda Sagar College of Engineering",s:"DSCE Bangalore",r:81,c:"Engineering",p:70,tp:52,ap:7,rec:["TCS","Wipro","Infosys","Cognizant","Accenture"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.Tech"],f:"Bangalore's established private engineering college",uc:"—"},
+{n:"Sathyabama Institute of Science and Technology",s:"Sathyabama Chennai",r:85,c:"Engineering",p:68,tp:42,ap:6,rec:["TCS","Infosys","Wipro","HCL","Cognizant"],crs:["B.Tech CSE","B.Tech ECE","B.Tech ME","B.Tech Aero","MBA"],f:"Chennai's private institute; strong in aeronautical engineering",uc:"Aeronautical Engineering, Space Science"},
+{n:"Hindustan Institute of Technology and Science",s:"HITS Chennai",r:92,c:"Engineering",p:62,tp:40,ap:5,rec:["TCS","Wipro","Infosys","HCL","Cognizant"],crs:["B.Tech CSE","B.Tech ECE","B.Tech ME","B.Tech Aero","MBA"],f:"Chennai's private deemed university; strong in aeronautics",uc:"Aeronautical Engineering (B.Tech)"},
+{n:"SRM Institute of Science and Technology",s:"SRM IST",r:62,c:"Engineering",p:70,tp:47,ap:7,rec:["TCS","Infosys","Wipro","Accenture","Cognizant","HCL"],crs:["B.Tech CSE","B.Tech ECE","B.Tech ME","B.Tech Biotech","MBA"],f:"One of India's largest private universities; 50,000+ students",uc:"Biotechnology (B.Tech), Biomedical Engineering"},
+{n:"KIIT Deemed to be University",s:"KIIT",r:61,c:"Engineering",p:72,tp:52,ap:7,rec:["TCS","Infosys","Wipro","Accenture","Cognizant"],crs:["B.Tech CSE","B.Tech ECE","B.Tech ME","B.Tech Civil","MBA"],f:"Odisha's top private university; strong placement network",uc:"Biotechnology (strong research programme)"},
+{n:"Chandigarh University",s:"Chandigarh Univ",r:67,c:"Engineering",p:68,tp:42,ap:6,rec:["TCS","Infosys","Wipro","HCL","Amazon"],crs:["B.Tech CSE","B.Tech ME","B.Tech ECE","MBA","BCA"],f:"Fastest-growing private university in North India",uc:"—"},
+{n:"Lovely Professional University",s:"LPU",r:68,c:"Engineering",p:62,tp:37,ap:5,rec:["TCS","Infosys","Wipro","HCL","Accenture"],crs:["B.Tech CSE","B.Tech ME","B.Tech ECE","MBA","BCA"],f:"India's largest single-campus university; 35,000+ students",uc:"—"},
+// ── Universities ──────────────────────────────────────────────────────────
+{n:"IISc Bangalore",s:"IISc Bangalore",r:1,c:"University",p:80,tp:102,ap:18,rec:["Google","Microsoft","ISRO","DRDO","Amazon"],crs:["B.Sc Research","M.Tech","M.Des","PhD","M.Mgt"],f:"India's #1 research university; world-class science & engineering",uc:"Supercomputing, Aerospace Engineering, Nanoscience (research focus)"},
+{n:"JNU Delhi",s:"JNU Delhi",r:2,c:"University",p:65,tp:42,ap:7,rec:["UPSC","DRDO","TCS","Infosys","UN Agencies"],crs:["M.A. Economics","M.A. History","M.Sc Physics","MBA","PhD"],f:"India's top central university for social sciences and research",uc:"Korean Studies, African Studies, Russian Language"},
+{n:"Jamia Millia Islamia",s:"Jamia Millia",r:3,c:"University",p:62,tp:40,ap:6,rec:["TCS","Infosys","Wipro","Accenture","HCL"],crs:["B.Tech CSE","B.A.","B.Sc","MBA","B.Ed"],f:"Delhi central university; strong in media and social sciences",uc:"Mass Communication & Journalism (specialized programmes)"},
+{n:"Manipal Academy of Higher Education",s:"MAHE Manipal",r:4,c:"University",p:75,tp:72,ap:9,rec:["Infosys","TCS","Wipro","Cognizant","Accenture"],crs:["B.Tech CSE","B.Tech ME","MBBS","BDS","MBA"],f:"One of India's most diverse deemed universities with MBBS & Engg",uc:"Allied Health Sciences, Physiotherapy, Architecture"},
+{n:"BHU Varanasi",s:"BHU Varanasi",r:5,c:"University",p:65,tp:47,ap:7,rec:["TCS","Infosys","Wipro","HCL","DRDO"],crs:["B.Sc","B.A.","B.Com","MBBS","BA LLB","MBA"],f:"Asia's largest residential university; highly diverse disciplines",uc:"Vedic Studies, Sanskrit, Performing Arts, Fine Arts"},
+{n:"University of Delhi",s:"Delhi University",r:6,c:"University",p:65,tp:52,ap:8,rec:["McKinsey","Deloitte","TCS","Goldman Sachs","Amazon"],crs:["B.A. (Hons)","B.Com (Hons)","B.Sc","BA LLB","MA"],f:"India's largest central university; top arts, commerce & law",uc:"Medieval History, Applied Psychology, Journalism (specialized)"},
+{n:"Amrita Vishwa Vidyapeetham",s:"Amrita Vishwa",r:7,c:"University",p:76,tp:62,ap:8,rec:["TCS","Infosys","Wipro","Cognizant","HCL"],crs:["B.Tech CSE","B.Tech ECE","B.Tech AI","B.Pharma","MBA"],f:"Fastest-rising private university; strong research output",uc:"Computational Biology (M.Sc), Cyber Security"},
+{n:"AMU Aligarh",s:"AMU Aligarh",r:8,c:"University",p:63,tp:42,ap:6,rec:["TCS","Infosys","Wipro","HCL","Cognizant"],crs:["B.Tech","MBBS","B.A. LLB","MBA","B.Sc"],f:"Historic central university est. 1875; strong arts & sciences",uc:"Islamic Studies, Arabic, Persian, Unani Medicine"},
+{n:"Calcutta University",s:"Calcutta Univ",r:9,c:"University",p:60,tp:42,ap:6,rec:["TCS","Infosys","Wipro","Cognizant","HCL"],crs:["B.Sc CS","B.Sc Physics","B.Com","MA","MBA"],f:"One of India's oldest universities est. 1857; strong in pure sciences",uc:"Tea Science (M.Sc), Jute Technology (specialized)"},
+{n:"University of Hyderabad",s:"Univ of Hyderabad",r:10,c:"University",p:65,tp:52,ap:7,rec:["TCS","Infosys","Wipro","DRDO","ISRO"],crs:["M.Sc CS","M.Sc Physics","MBA","M.Phil","PhD"],f:"Prestigious central university; renowned for science research",uc:"Computational Linguistics, Nanotechnology (research)"},
+{n:"Anna University",s:"Anna University",r:11,c:"University",p:68,tp:42,ap:6,rec:["TCS","Infosys","Wipro","Cognizant","Zoho"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","B.Arch"],f:"Affiliates 570+ colleges in Tamil Nadu; best state university",uc:"Marine Engineering, Geo-Informatics (M.E.)"},
+{n:"Tezpur University",s:"Tezpur Univ",r:12,c:"University",p:62,tp:40,ap:6,rec:["TCS","Infosys","Wipro","HCL","DRDO"],crs:["B.Tech CSE","B.Tech ECE","M.Sc","MBA","PhD"],f:"North-East India's leading central university; strong research",uc:"Molecular Biology & Biotechnology, Cultural Studies"},
+{n:"Osmania University",s:"Osmania Univ",r:13,c:"University",p:60,tp:37,ap:5,rec:["TCS","Infosys","Wipro","HCL","Cognizant"],crs:["B.Sc CS","B.Com","MBA","MBBS","B.A."],f:"Hyderabad's oldest university est. 1918; arts & sciences",uc:"Oriental Languages (Urdu, Persian, Arabic, Telugu)"},
+{n:"CUSAT Kochi",s:"CUSAT",r:14,c:"University",p:65,tp:42,ap:6,rec:["TCS","Infosys","Wipro","Cognizant","Amazon"],crs:["B.Tech CSE","B.Tech ECE","B.Tech ME","LLB","MBA"],f:"Kerala's leading technological university; strong marine engg",uc:"Marine Engineering, Ship Technology"},
+{n:"Pondicherry University",s:"Pondicherry Univ",r:15,c:"University",p:60,tp:37,ap:5,rec:["TCS","Infosys","Wipro","HCL","Cognizant"],crs:["B.Sc CS","M.Tech","MBA","M.Sc","MA"],f:"Central university known for tech and social sciences",uc:"French Language Studies (proximity to French Pondicherry)"},
+{n:"Shiv Nadar University",s:"Shiv Nadar Univ",r:16,c:"University",p:80,tp:87,ap:12,rec:["Microsoft","Amazon","Google","Infosys","Deloitte"],crs:["B.Tech CSE","B.Tech ECE","B.Tech ME","MBA","B.Sc Research"],f:"Young private university with strong industry connections",uc:"Liberal Arts & Sciences (standalone B.Sc Research, unique)"},
+{n:"Saveetha University",s:"Saveetha Univ",r:12,c:"University",p:72,tp:47,ap:7,rec:["TCS","Infosys","Wipro","HCL","Cognizant"],crs:["MBBS","BDS","B.Tech CSE","B.Pharma","MBA"],f:"Chennai's deemed university; top-ranked dental research output",uc:"Dentistry & Oral Health (India's top-ranked dental school)"},
+{n:"Ashoka University",s:"Ashoka Univ",r:18,c:"University",p:72,tp:52,ap:10,rec:["McKinsey","BCG","Deloitte","Goldman Sachs","Amazon"],crs:["B.Sc Research","B.A.(Hons)","M.Sc CS","MA Economics","MBA"],f:"India's top liberal arts university; strong in consultancy",uc:"Philosophy, Politics & Economics (PPE), Trivium Arts"},
+{n:"OP Jindal Global University",s:"Jindal Global",r:19,c:"University",p:72,tp:47,ap:9,rec:["McKinsey","Deloitte","KPMG","EY","Goldman Sachs"],crs:["LLB","BBA","B.A.","MBA","MA IR"],f:"India's top private law and liberal arts university",uc:"International Affairs, Global Studies"},
+{n:"Symbiosis International University",s:"Symbiosis",r:20,c:"University",p:70,tp:42,ap:7,rec:["Accenture","TCS","Infosys","Deloitte","KPMG"],crs:["B.Tech CSE","BBA","MBA","B.Sc IT","LLB"],f:"Pune-based multi-disciplinary university; top for law & mgmt",uc:"International Studies, Mass Communication (specialized)"},
+{n:"REVA University",s:"REVA University",r:48,c:"University",p:68,tp:42,ap:6,rec:["TCS","Infosys","Wipro","HCL","Accenture"],crs:["B.Tech CSE","B.Tech ECE","B.Tech ME","MBA","BCA"],f:"Bangalore's private university; growing in NIRF University rankings",uc:"—"},
+{n:"Jain University",s:"Jain University",r:50,c:"University",p:68,tp:42,ap:6,rec:["Deloitte","EY","TCS","Infosys","Wipro"],crs:["B.Tech CSE","B.Com","BBA","MBA","B.Sc"],f:"Bangalore's private deemed university; strong in commerce & media",uc:"—"},
+{n:"Amity University",s:"Amity University",r:25,c:"University",p:65,tp:37,ap:6,rec:["TCS","Infosys","Wipro","HCL","Accenture"],crs:["B.Tech CSE","B.Tech ECE","B.A. LLB","MBA","B.Com"],f:"Largest private university group in India across 13 campuses",uc:"Film & Television Production, Biotechnology"},
+{n:"Christ University",s:"Christ University",r:40,c:"University",p:70,tp:42,ap:7,rec:["Deloitte","EY","KPMG","TCS","Infosys"],crs:["B.Com","B.Sc","B.A. LLB","MBA","BCA"],f:"Bangalore's top private university; strong in commerce & law",uc:"—"},
+{n:"Graphic Era University",s:"Graphic Era Dehradun",r:60,c:"University",p:70,tp:44,ap:6,rec:["TCS","Infosys","Wipro","HCL","Cognizant"],crs:["B.Tech CSE","B.Tech ECE","B.Tech ME","MBA","BCA"],f:"Dehradun's top private university; strong in IT placements",uc:"—"},
+{n:"KL University",s:"KL University",r:72,c:"University",p:72,tp:50,ap:7,rec:["TCS","Infosys","Wipro","HCL","Cognizant"],crs:["B.Tech CSE","B.Tech ECE","B.Tech ME","MBA","MCA"],f:"Andhra Pradesh's top private university; growing placements",uc:"—"},
+{n:"Presidency University Bangalore",s:"Presidency Univ",r:95,c:"University",p:60,tp:38,ap:5,rec:["TCS","Wipro","Infosys","HCL","Cognizant"],crs:["B.Tech CSE","B.Tech ECE","B.Tech ME","BCA","MBA"],f:"Bangalore's growing private university; modern campus",uc:"—"},
+{n:"Punjabi University Patiala",s:"Punjabi Univ",r:17,c:"University",p:58,tp:32,ap:5,rec:["TCS","Infosys","Wipro","HCL","Cognizant"],crs:["B.Tech","MBA","B.A.","B.Sc","LLB"],f:"Punjab's leading state university with diverse academic programs",uc:"Punjabi Language & Literature (specialized)"},
+{n:"Kerala University",s:"Kerala Univ",r:18,c:"University",p:58,tp:32,ap:5,rec:["TCS","Infosys","Wipro","HCL","Cognizant"],crs:["B.Sc CS","M.Tech","MBA","B.A.","B.Com"],f:"Kerala's oldest university est. 1937; diverse multi-disciplinary",uc:"Malayalam Language Studies"},
+// ── IIMs & Top Management ─────────────────────────────────────────────────
+{n:"IIM Ahmedabad",s:"IIM Ahmedabad",r:1,c:"Management",p:100,tp:120,ap:35,rec:["McKinsey","BCG","Goldman Sachs","Bain","Amazon","Google"],crs:["MBA (PGP)","MBA (PGPX)","PhD","FPM","PGPEM"],f:"India's #1 management school; highest MBA average package nationally",uc:"Agri-Business Management (FABM, unique IIM programme)"},
+{n:"IIM Bangalore",s:"IIM Bangalore",r:2,c:"Management",p:100,tp:115,ap:33,rec:["McKinsey","BCG","Bain","Goldman Sachs","Google","Amazon"],crs:["MBA (PGP)","MBA (PGPEM)","PhD","NSE-IIM","EPGP"],f:"India's #2 IIM; consistently top-ranked globally for management",uc:"Public Policy & Management (PGPPM, exclusive programme)"},
+{n:"IIM Calcutta",s:"IIM Calcutta",r:3,c:"Management",p:100,tp:110,ap:32,rec:["McKinsey","BCG","Bain","Goldman Sachs","Amazon","Microsoft"],crs:["PGDM","MBA (MBAEx)","FPM","PGDBA","EMBA"],f:"India's oldest IIM; strong in finance and consulting placements",uc:"Business Analytics (PGDBA with ISI & IIT KGP)"},
+{n:"IIM Lucknow",s:"IIM Lucknow",r:4,c:"Management",p:100,tp:90,ap:28,rec:["McKinsey","Bain","Amazon","Goldman Sachs","Deloitte"],crs:["MBA (PGP)","PGP-ABM","IPMX","FPM","PGPWE"],f:"4th oldest IIM; strong in marketing and rural management",uc:"Agri-Business Management (PGP-ABM)"},
+{n:"IIM Kozhikode",s:"IIM Kozhikode",r:5,c:"Management",p:99,tp:78,ap:24,rec:["Amazon","Goldman Sachs","Bain","Deloitte","Accenture"],crs:["MBA (PGP)","MBA (EPGP)","PhD","FPM","EPGPX"],f:"Kerala's IIM; growing international partnerships and placements",uc:"Liberal Studies & Management (integrated approach)"},
+{n:"IIM Indore",s:"IIM Indore",r:6,c:"Management",p:100,tp:80,ap:25,rec:["Amazon","BCG","Goldman Sachs","Deloitte","Accenture"],crs:["MBA (PGP)","IPM (5yr)","EPGP","PhD","FPM"],f:"Unique 5-year IPM programme for Class 12 graduates",uc:"Integrated Programme in Management (IPM, Class 12 entry)"},
+{n:"XLRI Jamshedpur",s:"XLRI",r:7,c:"Management",p:100,tp:85,ap:26,rec:["McKinsey","BCG","Goldman Sachs","Amazon","Bain"],crs:["MBA (BM)","MBA (HRM)","GMP","FPM","PGCBM"],f:"India's oldest B-school; top for HR and business management",uc:"Human Resource Management (specialized 2-yr MBA HRM)"},
+{n:"MDI Gurgaon",s:"MDI Gurgaon",r:8,c:"Management",p:100,tp:72,ap:22,rec:["Amazon","Deloitte","Accenture","KPMG","Goldman Sachs"],crs:["MBA (PGP)","PGPM-HRM","NMP","FPM","EPGP"],f:"Top B-school in Delhi NCR; strong corporate connections",uc:"National Management Programme (NMP) for defence officers"},
+{n:"ISB Hyderabad",s:"ISB Hyderabad",r:9,c:"Management",p:100,tp:90,ap:30,rec:["McKinsey","BCG","Google","Amazon","Goldman Sachs"],crs:["Post Graduate Programme","AMP","SEP","MFAB","PhD"],f:"India's top 1-year MBA; ranked globally by FT & QS",uc:"1-Year Post Graduate Programme (unique in India)"},
+{n:"FMS Delhi",s:"FMS Delhi",r:10,c:"Management",p:100,tp:70,ap:25,rec:["McKinsey","BCG","Goldman Sachs","Amazon","Deloitte"],crs:["MBA (Full-Time)","MBA (Evening)","PhD","MHR","MS"],f:"Delhi University's business school; best ROI MBA in India",uc:"Master in Human Resource (MHR, specialized)"},
+{n:"SPJIMR Mumbai",s:"SPJIMR",r:11,c:"Management",p:100,tp:65,ap:22,rec:["McKinsey","Deloitte","Amazon","Goldman Sachs","P&G"],crs:["PGDM","PGPM","FMB","PhD","GEMBA"],f:"Mumbai's top private B-school; known for family business mgmt",uc:"Family Managed Business (FMB, unique programme)"},
+{n:"IIM Udaipur",s:"IIM Udaipur",r:12,c:"Management",p:99,tp:65,ap:20,rec:["Amazon","Deloitte","Accenture","EY","Goldman Sachs"],crs:["MBA (PGP)","GSCM","EPGP","PhD","FPM"],f:"India's first net-zero IIM campus; strong in supply chain",uc:"Global Supply Chain Management (GSCM, specialized)"},
+{n:"IIM Rohtak",s:"IIM Rohtak",r:13,c:"Management",p:99,tp:55,ap:18,rec:["Amazon","Deloitte","Accenture","TCS","Infosys"],crs:["MBA (IPM)","MBA (PGP)","EPGP","PhD","FPM"],f:"Haryana's IIM; growing placements and brand recognition",uc:"Integrated Programme in Management (IPM, 5-year)"},
+{n:"IIM Raipur",s:"IIM Raipur",r:14,c:"Management",p:99,tp:50,ap:17,rec:["Amazon","Deloitte","EY","KPMG","TCS"],crs:["MBA (PGP)","EPGP","PhD","FPM","PGDM"],f:"Central India's IIM; growing industry connections",uc:"—"},
+{n:"IIM Kashipur",s:"IIM Kashipur",r:15,c:"Management",p:99,tp:48,ap:16,rec:["Amazon","Deloitte","EY","Accenture","TCS"],crs:["MBA (PGP)","EMBA","PhD","FPM","PGPX"],f:"Uttarakhand's IIM; strong in operations management",uc:"—"},
+{n:"IIM Trichy",s:"IIM Trichy",r:16,c:"Management",p:99,tp:48,ap:16,rec:["Amazon","Deloitte","Accenture","TCS","EY"],crs:["MBA (PGP)","PGPM","EPGP","PhD","FPM"],f:"Tamil Nadu's IIM; growing national recognition",uc:"—"},
+{n:"IIM Visakhapatnam",s:"IIM Vizag",r:17,c:"Management",p:99,tp:46,ap:15,rec:["Amazon","Deloitte","Accenture","EY","TCS"],crs:["MBA (PGP)","EPGP","PhD","FPM","PGDM"],f:"Andhra Pradesh's IIM; scenic coastal campus",uc:"—"},
+{n:"IIM Amritsar",s:"IIM Amritsar",r:18,c:"Management",p:98,tp:42,ap:14,rec:["Amazon","Deloitte","EY","TCS","Infosys"],crs:["MBA (PGP)","EPGP","PhD","FPM","PGDM"],f:"Punjab's IIM near Golden Temple; growing recognition",uc:"—"},
+{n:"IIM Bodh Gaya",s:"IIM Bodh Gaya",r:19,c:"Management",p:98,tp:40,ap:13,rec:["Amazon","Deloitte","EY","KPMG","TCS"],crs:["MBA (PGP)","EPGP","PhD","FPM","PGDM"],f:"Bihar's IIM near historic Bodh Gaya; growing placements",uc:"—"},
+{n:"IIM Nagpur",s:"IIM Nagpur",r:20,c:"Management",p:98,tp:40,ap:13,rec:["Amazon","Deloitte","EY","KPMG","TCS"],crs:["MBA (PGP)","EPGP","PhD","FPM","PGDM"],f:"Maharashtra's IIM; central India's management hub",uc:"—"},
+{n:"IIM Jammu",s:"IIM Jammu",r:21,c:"Management",p:97,tp:38,ap:12,rec:["Amazon","Deloitte","EY","TCS","Infosys"],crs:["MBA (PGP)","EPGP","PhD","FPM","PGDM"],f:"J&K's IIM; growing national brand and placements",uc:"—"},
+{n:"IIM Sirmaur",s:"IIM Sirmaur",r:22,c:"Management",p:97,tp:36,ap:12,rec:["Amazon","Deloitte","TCS","Infosys","EY"],crs:["MBA (PGP)","EPGP","PhD","FPM","PGDM"],f:"Himachal Pradesh's IIM; scenic Himalayan campus",uc:"Sustainable Tourism Management"},
+{n:"IIM Sambalpur",s:"IIM Sambalpur",r:23,c:"Management",p:96,tp:35,ap:11,rec:["Amazon","Deloitte","TCS","Infosys","Wipro"],crs:["MBA (PGP)","EPGP","PhD","FPM","PGDM"],f:"Odisha's IIM; growing presence in Eastern India",uc:"—"},
+{n:"IMT Ghaziabad",s:"IMT Ghaziabad",r:24,c:"Management",p:98,tp:55,ap:18,rec:["Amazon","Deloitte","EY","KPMG","Goldman Sachs"],crs:["MBA (FT)","MBA (PT)","PGDM-DCP","EMBA","PhD"],f:"NCR's top private B-school; strong industry connections",uc:"Dual Country Programme (DCP) with Germany"},
+{n:"Great Lakes Institute of Management",s:"Great Lakes Chennai",r:25,c:"Management",p:99,tp:50,ap:17,rec:["Amazon","Deloitte","KPMG","EY","Goldman Sachs"],crs:["PGPM (1-yr)","PGDM (2-yr)","GMBA","EMBA","PhD"],f:"Chennai's top private B-school; known for 1-year PGPM",uc:"1-Year PGPM for working professionals (unique format)"},
+{n:"XIMB Bhubaneswar",s:"XIMB",r:15,c:"Management",p:100,tp:60,ap:19,rec:["Amazon","Deloitte","KPMG","Goldman Sachs","EY"],crs:["MBA (BM)","MBA (RM)","MBA (HRM)","PhD","PGDM"],f:"Odisha's premier B-school; top for rural management nationally",uc:"Rural Management MBA (unique programme)"},
+// ── Medical ───────────────────────────────────────────────────────────────
+{n:"AIIMS New Delhi",s:"AIIMS Delhi",r:1,c:"Medical",p:95,tp:32,ap:16,rec:["AIIMS Hospitals","WHO","DRDO","ICMR","Apollo"],crs:["MBBS","MD","MS","M.Ch","B.Sc Nursing"],f:"India's #1 medical institution; world-class research hospital",uc:"Nursing, Physiotherapy, Medical Lab Technology (alongside MBBS)"},
+{n:"JIPMER Puducherry",s:"JIPMER",r:2,c:"Medical",p:93,tp:30,ap:14,rec:["AIIMS","Govt Hospitals","WHO","ICMR","Apollo"],crs:["MBBS","MD","MS","M.Sc","Ph.D"],f:"India's 2nd best medical institution; autonomous central govt",uc:"Allied Health Sciences (AHS programmes, exclusive)"},
+{n:"CMC Vellore",s:"CMC Vellore",r:3,c:"Medical",p:90,tp:27,ap:12,rec:["CMC Hospitals","Apollo","Fortis","AIIMS","WHO"],crs:["MBBS","MD","MS","B.Sc Nursing","B.Sc Allied Health"],f:"India's top private medical college; exceptional patient care",uc:"Rehabilitation Sciences, Medical Genetics (M.Sc)"},
+{n:"PGIMER Chandigarh",s:"PGIMER",r:4,c:"Medical",p:92,tp:29,ap:13,rec:["PGIMER Hospitals","AIIMS","ICMR","Govt Hospitals"],crs:["MD","MS","M.Ch","DM","B.Sc Nursing"],f:"North India's top post-graduate medical institute",uc:"—"},
+{n:"AIIMS Bhopal",s:"AIIMS Bhopal",r:5,c:"Medical",p:88,tp:25,ap:12,rec:["AIIMS Hospitals","ICMR","WHO","Govt Hospitals","Apollo"],crs:["MBBS","MD","MS","B.Sc Nursing","PhD"],f:"Central India's AIIMS; growing research and clinical excellence",uc:"—"},
+// ── Law Schools ───────────────────────────────────────────────────────────
+{n:"National Law School of India University",s:"NLSIU Bangalore",r:1,c:"Law",p:95,tp:37,ap:18,rec:["AZB Partners","Cyril Amarchand","Trilegal","Supreme Court","UNHCR"],crs:["BA LLB (5yr)","LLM","PhD","MA Public Policy"],f:"India's #1 law school; highest-paid legal graduates nationally",uc:"5-Year BA LLB (pioneered the NLU model in India)"},
+{n:"NLU Delhi",s:"NLU Delhi",r:2,c:"Law",p:94,tp:35,ap:17,rec:["Cyril Amarchand","AZB","Trilegal","J&J","Supreme Court"],crs:["BA LLB (5yr)","LLM","PhD"],f:"Delhi's national law university; top for corporate law",uc:"—"},
+{n:"NALSAR Hyderabad",s:"NALSAR",r:3,c:"Law",p:92,tp:32,ap:15,rec:["AZB Partners","Cyril Amarchand","Khaitan","Supreme Court","UNHCR"],crs:["BA LLB (5yr)","LLM","MBA","PhD"],f:"Hyderabad's top law school; strong in corporate and intl law",uc:"—"},
+{n:"WBNUJS Kolkata",s:"NUJS Kolkata",r:4,c:"Law",p:90,tp:30,ap:14,rec:["Cyril Amarchand","AZB","Khaitan","Calcutta HC","UNHCR"],crs:["BA LLB (5yr)","LLM","PhD"],f:"Kolkata's national law school; strong in intellectual property",uc:"IP & Technology Law (specialized focus)"},
+{n:"NLU Jodhpur",s:"NLU Jodhpur",r:5,c:"Law",p:88,tp:28,ap:13,rec:["AZB Partners","Trilegal","JSA","Rajasthan HC","UNHCR"],crs:["BA LLB (5yr)","LLM","MBA","PhD"],f:"Rajasthan's national law school; strong alumni network",uc:"Corporate Law, Media Law"},
+// ── Architecture ──────────────────────────────────────────────────────────
+{n:"School of Planning and Architecture Delhi",s:"SPA Delhi",r:1,c:"Architecture",p:85,tp:32,ap:10,rec:["Hafeez Contractor","Morphogenesis","Zaha Hadid India","CPWD","DDA"],crs:["B.Arch (5yr)","B.Plan","M.Arch","M.Plan","PhD"],f:"India's #1 architecture school; elite admission via NATA",uc:"Urban & Regional Planning, Industrial Design, Transport Planning"},
+{n:"CEPT University",s:"CEPT University",r:3,c:"Architecture",p:82,tp:30,ap:9,rec:["Hafeez Contractor","HCP Design","L&T Construction","CPWD"],crs:["B.Arch","B.Des","B.Plan","M.Arch","M.Des"],f:"Ahmedabad's top architecture school; design-focused curriculum",uc:"Faculty of Design, Faculty of Technology (cross-disciplinary)"},
+{n:"SPA Bhopal",s:"SPA Bhopal",r:5,c:"Architecture",p:78,tp:24,ap:8,rec:["Morphogenesis","CPWD","HCP Design","L&T","local firms"],crs:["B.Arch (5yr)","M.Arch","M.Plan","PhD"],f:"Central India's top architecture school; part of SPA network",uc:"Landscape Architecture (M.Arch specialization)"},
+// ── Social Work / Others ──────────────────────────────────────────────────
+{n:"TISS Mumbai",s:"TISS Mumbai",r:1,c:"Social Work",p:90,tp:27,ap:10,rec:["UN Agencies","NGOs","Govt","WHO","TCS Foundation"],crs:["M.A. Social Work","M.A. HRM","M.A. Education","M.A. Habitat","PhD"],f:"India's top social science university; premier for HR & development",uc:"Development Studies, Habitat Policy, Media & Cultural Studies"},
+// ── Karnataka – Private & Govt Engineering Colleges ───────────────────────
+{n:"National Institute of Engineering Mysuru",s:"NIE Mysuru",r:90,c:"Engineering",p:70,tp:38,ap:6,rec:["Infosys","TCS","Wipro","Cognizant","HCL"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.Tech"],f:"Mysuru's oldest private engineering college; est. 1946; strong in core engg",uc:"—"},
+{n:"Bangalore Institute of Technology",s:"BIT Bangalore",r:93,c:"Engineering",p:68,tp:36,ap:6,rec:["Infosys","TCS","Wipro","HCL","Cognizant"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.Tech"],f:"Bangalore's government-aided engineering college; affordable quality education",uc:"—"},
+{n:"RNS Institute of Technology",s:"RNSIT Bangalore",r:83,c:"Engineering",p:68,tp:44,ap:6,rec:["TCS","Wipro","Infosys","Cognizant","HCL"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.Tech"],f:"Bangalore's growing private engineering college under VTU",uc:"—"},
+{n:"CMR Institute of Technology",s:"CMRIT Bangalore",r:86,c:"Engineering",p:66,tp:42,ap:6,rec:["TCS","Wipro","Infosys","Cognizant","HCL"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.Tech"],f:"Bangalore's growing IT-focused autonomous engineering college",uc:"—"},
+{n:"New Horizon College of Engineering",s:"NHCE Bangalore",r:87,c:"Engineering",p:65,tp:42,ap:6,rec:["TCS","Wipro","Infosys","Cognizant","HCL"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.Tech"],f:"Bangalore's autonomous college; strong in emerging tech and AI",uc:"—"},
+{n:"MVJ College of Engineering",s:"MVJ College",r:90,c:"Engineering",p:63,tp:40,ap:5,rec:["TCS","Wipro","Infosys","HCL","Cognizant"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.Tech"],f:"Bangalore's private engineering college; growing placements every year",uc:"—"},
+{n:"Sir M Visvesvaraya Institute of Technology",s:"Sir MVIT Bangalore",r:88,c:"Engineering",p:67,tp:44,ap:6,rec:["TCS","Wipro","Infosys","Cognizant","HCL"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.Tech"],f:"Bangalore autonomous college named after India's greatest engineer",uc:"—"},
+{n:"Nitte Meenakshi Institute of Technology",s:"NMIT Bangalore",r:89,c:"Engineering",p:67,tp:44,ap:6,rec:["TCS","Wipro","Infosys","Cognizant","HCL"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.Tech"],f:"Bangalore's private college; part of reputed Nitte Education Group",uc:"—"},
+{n:"SJB Institute of Technology",s:"SJBIT Bangalore",r:92,c:"Engineering",p:65,tp:38,ap:6,rec:["Infosys","TCS","Wipro","HCL","Cognizant"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.Tech"],f:"Bangalore private college affiliated to VTU; growing placement record",uc:"—"},
+{n:"Global Academy of Technology",s:"GAT Bangalore",r:95,c:"Engineering",p:63,tp:35,ap:5,rec:["Infosys","TCS","Wipro","HCL","Cognizant"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.Tech"],f:"Bangalore's VTU-affiliated private college; strong campus recruitment",uc:"—"},
+{n:"Acharya Institute of Technology",s:"AIT Bangalore",r:91,c:"Engineering",p:63,tp:38,ap:5,rec:["TCS","Wipro","Infosys","HCL","Cognizant"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.Tech"],f:"Bangalore's autonomous college under Acharya Institutes group",uc:"—"},
+{n:"East West Institute of Technology",s:"EWIT Bangalore",r:96,c:"Engineering",p:60,tp:32,ap:5,rec:["Infosys","TCS","Wipro","HCL","Cognizant"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.Tech"],f:"Bangalore private engineering college; affordable and growing placement rate",uc:"—"},
+{n:"Atria Institute of Technology",s:"Atria Bangalore",r:95,c:"Engineering",p:60,tp:32,ap:5,rec:["Infosys","TCS","Wipro","HCL","Cognizant"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.Tech"],f:"Bangalore's growing private engineering college; VTU affiliated",uc:"—"},
+{n:"KLE Technological University",s:"KLE Tech Hubballi",r:52,c:"Engineering",p:72,tp:46,ap:7,rec:["TCS","Infosys","Wipro","Cognizant","Bosch"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.Tech"],f:"North Karnataka's top engineering university; formerly BVB College",uc:"—"},
+{n:"SDMCET Dharwad",s:"SDMCET Dharwad",r:60,c:"Engineering",p:70,tp:40,ap:6,rec:["TCS","Infosys","Wipro","HCL","Cognizant"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.Tech"],f:"Dharwad's top autonomous engineering college; strong in core engineering",uc:"—"},
+{n:"BNM Institute of Technology",s:"BNMIT Bangalore",r:94,c:"Engineering",p:62,tp:35,ap:5,rec:["Infosys","TCS","Wipro","HCL","Cognizant"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.Tech"],f:"Bangalore's private college; affordable engineering with growing placements",uc:"—"},
+{n:"Siddaganga Institute of Technology",s:"SIT Tumkur",r:62,c:"Engineering",p:70,tp:38,ap:6,rec:["Infosys","TCS","Wipro","HCL","Bosch"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.Tech"],f:"Tumkur's top engineering college; excellent infrastructure and placements",uc:"—"},
+{n:"The Oxford College of Engineering",s:"Oxford College Bangalore",r:96,c:"Engineering",p:60,tp:32,ap:5,rec:["Infosys","TCS","Wipro","HCL","Cognizant"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.Tech"],f:"Bangalore's private engineering college; consistent student placements",uc:"—"},
+{n:"Don Bosco Institute of Technology",s:"DBIT Bangalore",r:97,c:"Engineering",p:60,tp:32,ap:5,rec:["Infosys","TCS","Wipro","HCL","Cognizant"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.Tech"],f:"Bangalore's Catholic minority institution; known for discipline and placements",uc:"—"},
+// ── Maharashtra – Engineering Colleges ────────────────────────────────────
+{n:"VJTI Mumbai",s:"VJTI Mumbai",r:22,c:"Engineering",p:82,tp:88,ap:12,rec:["Goldman Sachs","Microsoft","Amazon","Quantiphi","TCS","Infosys"],crs:["B.Tech CSE","B.Tech IT","B.Tech ME","B.Tech Civil","M.Tech"],f:"Maharashtra's most prestigious govt engineering college; est. 1887",uc:"Textile Technology (B.Tech Textile), Production Engineering"},
+{n:"Institute of Chemical Technology Mumbai",s:"ICT Mumbai",r:29,c:"Engineering",p:80,tp:72,ap:11,rec:["Reliance","BASF","TCS","Goldman Sachs","Amazon"],crs:["B.Tech Chemical","B.Tech Pharma","B.Tech Polymer","M.Tech","PhD"],f:"India's #1 chemical technology institute; formerly UDCT Mumbai",uc:"Chemical Engineering, Pharmaceutical Technology, Polymer Engineering"},
+{n:"Sardar Patel College of Engineering Mumbai",s:"SPCE Mumbai",r:50,c:"Engineering",p:75,tp:56,ap:9,rec:["TCS","Infosys","Wipro","Cognizant","Accenture"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.Tech"],f:"Mumbai's autonomous engineering college; strong in civil and mechanical",uc:"—"},
+{n:"K.J. Somaiya College of Engineering",s:"KJSCE Mumbai",r:55,c:"Engineering",p:74,tp:52,ap:8,rec:["TCS","Infosys","Wipro","Accenture","Cognizant"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.Tech"],f:"Mumbai's autonomous private college; part of Somaiya Vidyavihar University",uc:"—"},
+{n:"Pune Institute of Computer Technology",s:"PICT Pune",r:45,c:"Engineering",p:78,tp:62,ap:9,rec:["TCS","Infosys","Microsoft","Amazon","Cognizant"],crs:["B.E. CSE","B.E. ECE","B.E. IT","B.E. ENTC","M.E."],f:"Pune's top autonomous CS-focused engineering college; high placement rate",uc:"Computer Engineering (strong focus), Electronics & Telecomm"},
+{n:"Vishwakarma Institute of Technology Pune",s:"VIT Pune",r:58,c:"Engineering",p:74,tp:50,ap:7,rec:["TCS","Infosys","Wipro","Cognizant","Accenture"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.Tech"],f:"Pune's autonomous private engineering college under Savitribai Phule University",uc:"—"},
+{n:"Dwarkadas J. Sanghvi College of Engineering",s:"DJSCE Mumbai",r:60,c:"Engineering",p:73,tp:48,ap:7,rec:["TCS","Infosys","Wipro","Accenture","Cognizant"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.Tech"],f:"Mumbai's autonomous private college; strong industry connections in finance tech",uc:"—"},
+{n:"Thadomal Shahani Engineering College",s:"TSEC Mumbai",r:65,c:"Engineering",p:72,tp:46,ap:7,rec:["TCS","Infosys","Wipro","Accenture","Cognizant"],crs:["B.E. CSE","B.E. ECE","B.E. IT","B.E. ME","M.E."],f:"Mumbai's autonomous college; strong alumni network in IT sector",uc:"—"},
+{n:"Thakur College of Engineering and Technology",s:"TCET Mumbai",r:68,c:"Engineering",p:70,tp:44,ap:6,rec:["TCS","Infosys","Wipro","HCL","Cognizant"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.Tech"],f:"Mumbai's private college; Thakur Educational Trust institution",uc:"—"},
+{n:"Pillai College of Engineering",s:"PCE Mumbai",r:70,c:"Engineering",p:70,tp:44,ap:6,rec:["TCS","Infosys","Wipro","HCL","Cognizant"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.Tech"],f:"Mumbai's autonomous college; part of Mahatma Education Society",uc:"—"},
+{n:"Atharva College of Engineering",s:"Atharva Mumbai",r:72,c:"Engineering",p:68,tp:40,ap:6,rec:["TCS","Infosys","Wipro","HCL","Cognizant"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.Tech"],f:"Mumbai's private engineering college with growing placement activity",uc:"—"},
+{n:"Fr. Conceicao Rodrigues College of Engineering",s:"FRCRCE Mumbai",r:66,c:"Engineering",p:71,tp:44,ap:6,rec:["TCS","Infosys","Wipro","HCL","Cognizant"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.Tech"],f:"Mumbai's autonomous Catholic minority institution; good academic record",uc:"—"},
+{n:"Symbiosis Institute of Technology Pune",s:"SIT Pune",r:58,c:"Engineering",p:72,tp:48,ap:7,rec:["TCS","Infosys","Wipro","Cognizant","Accenture"],crs:["B.Tech CSE","B.Tech ECE","B.Tech ME","B.Tech Civil","M.Tech"],f:"Pune's private tech institute under Symbiosis International University",uc:"—"},
+{n:"MIT College of Engineering Pune",s:"MITCOE Pune",r:55,c:"Engineering",p:74,tp:50,ap:7,rec:["TCS","Infosys","Wipro","Cognizant","Accenture"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.Tech"],f:"Pune's autonomous college under MIT Art Design and Technology University",uc:"—"},
+// ── Tamil Nadu – Engineering Colleges ─────────────────────────────────────
+{n:"Sri Krishna College of Engineering and Technology",s:"SKCET Coimbatore",r:74,c:"Engineering",p:76,tp:50,ap:7,rec:["TCS","Wipro","Infosys","Cognizant","HCL"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.Tech"],f:"Coimbatore's autonomous college; excellent placement ratio for CS branches",uc:"—"},
+{n:"Bannari Amman Institute of Technology",s:"BAIT Erode",r:78,c:"Engineering",p:74,tp:48,ap:6,rec:["TCS","Wipro","Infosys","HCL","Cognizant"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.Tech"],f:"Erode's top autonomous college; strong in manufacturing and CS",uc:"—"},
+{n:"Kumaraguru College of Technology",s:"KCT Coimbatore",r:72,c:"Engineering",p:76,tp:52,ap:7,rec:["TCS","Wipro","Infosys","Cognizant","HCL"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.Tech"],f:"Coimbatore's reputed autonomous college; active industry partnerships",uc:"—"},
+{n:"Velammal Engineering College",s:"VEC Chennai",r:80,c:"Engineering",p:72,tp:44,ap:6,rec:["TCS","Wipro","Infosys","Cognizant","HCL"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.Tech"],f:"Chennai's private college; part of Velammal Group of Institutions",uc:"—"},
+{n:"Sri Sairam Engineering College",s:"Sri Sairam Chennai",r:82,c:"Engineering",p:70,tp:42,ap:6,rec:["TCS","Wipro","Infosys","HCL","Cognizant"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.Tech"],f:"Chennai's autonomous private college; strong CS and ECE placements",uc:"—"},
+{n:"Panimalar Engineering College",s:"Panimalar Chennai",r:85,c:"Engineering",p:68,tp:40,ap:5,rec:["TCS","Wipro","Infosys","HCL","Cognizant"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.Tech"],f:"Chennai's private college; consistent placement record in software sector",uc:"—"},
+{n:"KPR Institute of Engineering and Technology",s:"KPRIET Coimbatore",r:77,c:"Engineering",p:74,tp:46,ap:6,rec:["TCS","Wipro","Infosys","Cognizant","HCL"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.Tech"],f:"Coimbatore's autonomous private college; strong CS and AI placements",uc:"—"},
+{n:"R.M.K. Engineering College",s:"RMKEC Chennai",r:82,c:"Engineering",p:70,tp:42,ap:6,rec:["TCS","Wipro","Infosys","HCL","Cognizant"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.Tech"],f:"Chennai's autonomous college; strong pharma and tech industry linkage",uc:"—"},
+{n:"Easwari Engineering College",s:"Easwari Chennai",r:85,c:"Engineering",p:68,tp:40,ap:5,rec:["TCS","Wipro","Infosys","HCL","Cognizant"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.Tech"],f:"Chennai's private autonomous college; part of SRM Group",uc:"—"},
+{n:"St. Joseph's College of Engineering",s:"SJCE Chennai",r:80,c:"Engineering",p:70,tp:42,ap:6,rec:["TCS","Wipro","Infosys","HCL","Cognizant"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.Tech"],f:"Chennai's Catholic minority autonomous institution; consistent placements",uc:"—"},
+{n:"Jerusalem College of Engineering",s:"JCE Chennai",r:88,c:"Engineering",p:67,tp:38,ap:5,rec:["TCS","Wipro","Infosys","HCL","Cognizant"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.Tech"],f:"Chennai's private autonomous college; affiliated to Anna University",uc:"—"},
+// ── Andhra Pradesh & Telangana ─────────────────────────────────────────────
+{n:"JNTUH College of Engineering Hyderabad",s:"JNTUHCEH Hyderabad",r:38,c:"Engineering",p:72,tp:56,ap:8,rec:["TCS","Infosys","Wipro","Cognizant","Microsoft"],crs:["B.Tech CSE","B.Tech ECE","B.Tech ME","B.Tech Civil","M.Tech"],f:"Hyderabad's flagship JNTUH campus; one of India's largest engineering universities",uc:"—"},
+{n:"Osmania University College of Engineering",s:"OUCE Hyderabad",r:42,c:"Engineering",p:70,tp:50,ap:7,rec:["TCS","Infosys","Wipro","Cognizant","HCL"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.Tech"],f:"Hyderabad's oldest government engineering college; est. 1929",uc:"—"},
+{n:"Chaitanya Bharathi Institute of Technology",s:"CBIT Hyderabad",r:55,c:"Engineering",p:73,tp:52,ap:7,rec:["TCS","Infosys","Wipro","Microsoft","Amazon"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.Tech"],f:"Hyderabad's top autonomous private college; strong software placements",uc:"—"},
+{n:"VNR Vignana Jyothi Institute of Engineering and Technology",s:"VNRVJIET Hyderabad",r:65,c:"Engineering",p:72,tp:50,ap:7,rec:["TCS","Infosys","Wipro","Cognizant","HCL"],crs:["B.Tech CSE","B.Tech ECE","B.Tech ME","B.Tech Civil","M.Tech"],f:"Hyderabad's autonomous college; consistently strong placement record",uc:"—"},
+{n:"Vasavi College of Engineering",s:"VCE Hyderabad",r:60,c:"Engineering",p:72,tp:50,ap:7,rec:["TCS","Infosys","Wipro","Cognizant","HCL"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.Tech"],f:"Hyderabad's autonomous minority institution; good CS and ECE placements",uc:"—"},
+{n:"Gokaraju Rangaraju Institute of Engineering and Technology",s:"GRIET Hyderabad",r:70,c:"Engineering",p:70,tp:46,ap:6,rec:["TCS","Infosys","Wipro","HCL","Cognizant"],crs:["B.Tech CSE","B.Tech ECE","B.Tech ME","B.Tech Civil","M.Tech"],f:"Hyderabad's private autonomous college; active tech club ecosystem",uc:"—"},
+{n:"Malla Reddy Engineering College",s:"MREC Hyderabad",r:75,c:"Engineering",p:68,tp:42,ap:6,rec:["TCS","Infosys","Wipro","HCL","Cognizant"],crs:["B.Tech CSE","B.Tech ECE","B.Tech ME","B.Tech Civil","M.Tech"],f:"Hyderabad's private college under Malla Reddy Group; large campus",uc:"—"},
+{n:"CVR College of Engineering",s:"CVRCE Hyderabad",r:72,c:"Engineering",p:69,tp:44,ap:6,rec:["TCS","Infosys","Wipro","HCL","Cognizant"],crs:["B.Tech CSE","B.Tech ECE","B.Tech ME","B.Tech Civil","M.Tech"],f:"Hyderabad's autonomous private college; growing placements in IT",uc:"—"},
+{n:"Institute of Aeronautical Engineering",s:"IARE Hyderabad",r:68,c:"Engineering",p:70,tp:48,ap:6,rec:["HAL","DRDO","TCS","Infosys","Wipro"],crs:["B.Tech CSE","B.Tech ECE","B.Tech Aero","B.Tech ME","M.Tech"],f:"Hyderabad's autonomous college; top for aeronautical engineering in AP/TS",uc:"Aeronautical Engineering (B.Tech), Avionics (M.Tech)"},
+{n:"SRM University Andhra Pradesh",s:"SRM AP Amaravati",r:52,c:"Engineering",p:72,tp:52,ap:7,rec:["TCS","Microsoft","Amazon","Intel","Infosys"],crs:["B.Tech CSE","B.Tech ECE","B.Tech ME","B.Tech Civil","MBA"],f:"SRM's Andhra Pradesh campus in new capital Amaravati; growing rapidly",uc:"—"},
+// ── West Bengal ────────────────────────────────────────────────────────────
+{n:"IIEST Shibpur",s:"IIEST Shibpur",r:20,c:"Engineering",p:75,tp:68,ap:10,rec:["TCS","Infosys","Wipro","Amazon","Microsoft","Cognizant"],crs:["B.Tech CSE","B.Tech ECE","B.Tech ME","B.Tech Civil","M.Tech"],f:"India's oldest technical institution est. 1856; former BE College; top NIRF",uc:"Mining Engineering, Printing Engineering (unique in Eastern India)"},
+{n:"Heritage Institute of Technology",s:"Heritage Kolkata",r:65,c:"Engineering",p:70,tp:42,ap:6,rec:["TCS","Infosys","Wipro","Cognizant","HCL"],crs:["B.Tech CSE","B.Tech ECE","B.Tech ME","B.Tech Civil","M.Tech"],f:"Kolkata's top private engineering college; strong IT sector placements",uc:"—"},
+{n:"Techno India University",s:"Techno India Kolkata",r:75,c:"Engineering",p:65,tp:38,ap:5,rec:["TCS","Infosys","Wipro","Cognizant","HCL"],crs:["B.Tech CSE","B.Tech ECE","B.Tech ME","B.Tech Civil","MBA"],f:"West Bengal's private university; largest private university in the state",uc:"—"},
+{n:"RCC Institute of Information Technology",s:"RCCIIT Kolkata",r:78,c:"Engineering",p:67,tp:38,ap:5,rec:["TCS","Infosys","Wipro","HCL","Cognizant"],crs:["B.Tech CSE","B.Tech ECE","B.Tech IT","B.Tech ME","M.Tech"],f:"Kolkata's government-aided IT-focused college; strong CS placements",uc:"Information Technology (specialized focus)"},
+{n:"Narula Institute of Technology",s:"NIT Agarpara",r:80,c:"Engineering",p:64,tp:36,ap:5,rec:["TCS","Infosys","Wipro","HCL","Cognizant"],crs:["B.Tech CSE","B.Tech ECE","B.Tech ME","B.Tech Civil","M.Tech"],f:"Kolkata's private engineering college; consistent campus placement record",uc:"—"},
+{n:"Academy of Technology",s:"AoT Hooghly",r:82,c:"Engineering",p:63,tp:35,ap:5,rec:["TCS","Infosys","Wipro","HCL","Cognizant"],crs:["B.Tech CSE","B.Tech ECE","B.Tech ME","B.Tech Civil","M.Tech"],f:"West Bengal's private college; part of AKS Education group",uc:"—"},
+// ── Kerala ─────────────────────────────────────────────────────────────────
+{n:"College of Engineering Trivandrum",s:"CET Trivandrum",r:35,c:"Engineering",p:75,tp:52,ap:9,rec:["TCS","Infosys","Wipro","UST Global","IBS"],crs:["B.Tech CSE","B.Tech ECE","B.Tech ME","B.Tech Civil","M.Tech"],f:"Kerala's oldest and most prestigious government engineering college; est. 1939",uc:"Architecture (B.Arch), Safety & Fire Engineering"},
+{n:"Model Engineering College",s:"MEC Kochi",r:42,c:"Engineering",p:72,tp:48,ap:8,rec:["TCS","Infosys","Wipro","UST Global","Cognizant"],crs:["B.Tech CSE","B.Tech ECE","B.Tech ME","B.Tech Civil","M.Tech"],f:"Kochi's government-aided college; strong in electronics and IT sector",uc:"—"},
+{n:"TKM College of Engineering",s:"TKMCE Kollam",r:55,c:"Engineering",p:70,tp:44,ap:7,rec:["TCS","Infosys","Wipro","HCL","UST Global"],crs:["B.Tech CSE","B.Tech ECE","B.Tech ME","B.Tech Civil","M.Tech"],f:"Kollam's aided engineering college; strong alumni network in Kerala",uc:"—"},
+{n:"Rajagiri School of Engineering and Technology",s:"RSET Kochi",r:65,c:"Engineering",p:68,tp:42,ap:6,rec:["TCS","Infosys","Wipro","UST Global","HCL"],crs:["B.Tech CSE","B.Tech ECE","B.Tech ME","B.Tech Civil","M.Tech"],f:"Kochi's Catholic minority college; good CS and ECE placement record",uc:"—"},
+{n:"Government Engineering College Thrissur",s:"GEC Thrissur",r:50,c:"Engineering",p:70,tp:44,ap:7,rec:["TCS","Infosys","Wipro","UST Global","Cognizant"],crs:["B.Tech CSE","B.Tech ECE","B.Tech ME","B.Tech Civil","M.Tech"],f:"Thrissur's premier government engineering college; affordable education",uc:"—"},
+{n:"Mar Baselios College of Engineering and Technology",s:"MBCET Trivandrum",r:68,c:"Engineering",p:67,tp:40,ap:6,rec:["TCS","Infosys","Wipro","UST Global","HCL"],crs:["B.Tech CSE","B.Tech ECE","B.Tech ME","B.Tech Civil","M.Tech"],f:"Trivandrum's Catholic minority college; strong CS and software placements",uc:"—"},
+// ── Rajasthan ──────────────────────────────────────────────────────────────
+{n:"JECRC University",s:"JECRC Jaipur",r:78,c:"Engineering",p:65,tp:36,ap:5,rec:["TCS","Infosys","Wipro","HCL","Cognizant"],crs:["B.Tech CSE","B.Tech ECE","B.Tech ME","B.Tech Civil","MBA"],f:"Jaipur's private university; growing tech sector placements in Rajasthan",uc:"—"},
+{n:"Poornima University",s:"Poornima Jaipur",r:82,c:"Engineering",p:63,tp:34,ap:5,rec:["TCS","Infosys","Wipro","HCL","Cognizant"],crs:["B.Tech CSE","B.Tech ECE","B.Tech ME","B.Tech Civil","MBA"],f:"Jaipur's private university known for industry-oriented curriculum",uc:"—"},
+{n:"Poornima College of Engineering",s:"PCE Jaipur",r:85,c:"Engineering",p:62,tp:33,ap:5,rec:["TCS","Infosys","Wipro","HCL","Cognizant"],crs:["B.Tech CSE","B.Tech ECE","B.Tech ME","B.Tech Civil","M.Tech"],f:"Jaipur's autonomous private engineering college; sister of Poornima Univ",uc:"—"},
+{n:"Arya College of Engineering and IT",s:"Arya College Jaipur",r:88,c:"Engineering",p:60,tp:32,ap:5,rec:["TCS","Infosys","Wipro","HCL","Cognizant"],crs:["B.Tech CSE","B.Tech ECE","B.Tech ME","B.Tech Civil","M.Tech"],f:"Jaipur's private college; Arya Group of Colleges institution",uc:"—"},
+// ── Gujarat ────────────────────────────────────────────────────────────────
+{n:"CHARUSAT University",s:"CHARUSAT Changa",r:60,c:"Engineering",p:70,tp:42,ap:6,rec:["TCS","Infosys","Wipro","Cognizant","HCL"],crs:["B.Tech CSE","B.Tech ECE","B.Tech ME","B.Tech Civil","MBA"],f:"Gujarat's private university; strong in IT and pharma industry connections",uc:"—"},
+{n:"LJ University",s:"LJ University Ahmedabad",r:70,c:"Engineering",p:65,tp:36,ap:5,rec:["TCS","Infosys","Wipro","HCL","Cognizant"],crs:["B.Tech CSE","B.Tech ECE","B.Tech ME","B.Tech Civil","MBA"],f:"Ahmedabad's growing private university; formerly LJ Institute of Engineering",uc:"—"},
+{n:"Silver Oak University",s:"Silver Oak Ahmedabad",r:85,c:"Engineering",p:60,tp:32,ap:5,rec:["TCS","Infosys","Wipro","HCL","Cognizant"],crs:["B.Tech CSE","B.Tech ECE","B.Tech ME","B.Tech Civil","MBA"],f:"Ahmedabad's private university with good industry linkage in Gujarat",uc:"—"},
+{n:"Government Engineering College Surat",s:"GEC Surat",r:65,c:"Engineering",p:70,tp:40,ap:6,rec:["TCS","Infosys","Wipro","Reliance","L&T"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.E."],f:"Surat's government engineering college; affordable with good core placements",uc:"—"},
+{n:"Sardar Vallabhbhai Patel Institute of Technology",s:"SVIT Vasad",r:72,c:"Engineering",p:67,tp:38,ap:5,rec:["TCS","Infosys","Wipro","HCL","Cognizant"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.E."],f:"Gujarat's autonomous private college; strong rural development connect",uc:"—"},
+// ── Delhi / NCR ────────────────────────────────────────────────────────────
+{n:"Maharaja Agrasen Institute of Technology",s:"MAIT Delhi",r:65,c:"Engineering",p:72,tp:48,ap:7,rec:["TCS","Infosys","Wipro","Cognizant","Microsoft"],crs:["B.Tech CSE","B.Tech ECE","B.Tech IT","B.Tech ME","M.Tech"],f:"Delhi's GGSIPU affiliated college; strong IT placement record",uc:"—"},
+{n:"Guru Tegh Bahadur Institute of Technology",s:"GTBIT Delhi",r:70,c:"Engineering",p:68,tp:42,ap:6,rec:["TCS","Infosys","Wipro","HCL","Cognizant"],crs:["B.Tech CSE","B.Tech ECE","B.Tech IT","B.Tech ME","M.Tech"],f:"Delhi's GGSIPU affiliated private college; consistent IT placements",uc:"—"},
+{n:"Bhagwan Parshuram Institute of Technology",s:"BPIT Delhi",r:75,c:"Engineering",p:65,tp:38,ap:5,rec:["TCS","Infosys","Wipro","HCL","Cognizant"],crs:["B.Tech CSE","B.Tech ECE","B.Tech IT","B.Tech ME","M.Tech"],f:"Delhi's private GGSIPU college; affordable engineering with growing placements",uc:"—"},
+{n:"Indira Gandhi Delhi Technical University for Women",s:"IGDTUW Delhi",r:48,c:"Engineering",p:74,tp:52,ap:8,rec:["TCS","Infosys","Microsoft","Amazon","Goldman Sachs"],crs:["B.Tech CSE","B.Tech ECE","B.Tech IT","B.Tech ME","M.Tech"],f:"India's only technical university exclusively for women; strong CS placements",uc:"Women-only technical university (unique in India)"},
+{n:"Ambedkar Institute of Advanced Communication Technologies",s:"AIACTR Delhi",r:68,c:"Engineering",p:68,tp:40,ap:6,rec:["TCS","Infosys","Wipro","HCL","Cognizant"],crs:["B.Tech CSE","B.Tech ECE","B.Tech IT","B.Tech ME","M.Tech"],f:"Delhi's GGSIPU affiliated college; strong in ECE and IT",uc:"Electronics & Communication (specialized focus)"},
+{n:"Bennett University",s:"Bennett Univ Noida",r:62,c:"Engineering",p:72,tp:50,ap:8,rec:["TCS","Times Group","Amazon","Microsoft","Infosys"],crs:["B.Tech CSE","B.Tech ECE","B.Tech ME","MBA","BCA"],f:"Noida's private university by Times Group; strong media-tech connections",uc:"Media Technology, Journalism (Times Group backed)"},
+{n:"Sharda University",s:"Sharda University",r:72,c:"Engineering",p:68,tp:42,ap:6,rec:["TCS","Infosys","Wipro","HCL","Cognizant"],crs:["B.Tech CSE","B.Tech ECE","B.Tech ME","B.Tech Civil","MBA"],f:"Greater Noida's large private university; diverse international student body",uc:"—"},
+{n:"GLA University",s:"GLA University Mathura",r:75,c:"Engineering",p:65,tp:38,ap:5,rec:["TCS","Infosys","Wipro","HCL","Cognizant"],crs:["B.Tech CSE","B.Tech ECE","B.Tech ME","B.Tech Civil","MBA"],f:"Mathura's private university; growing IT placements in UP",uc:"—"},
+// ── Uttar Pradesh ──────────────────────────────────────────────────────────
+{n:"HBTU Kanpur",s:"HBTU Kanpur",r:42,c:"Engineering",p:72,tp:52,ap:8,rec:["TCS","Infosys","Wipro","Amazon","HCL"],crs:["B.Tech CSE","B.Tech ECE","B.Tech ME","B.Tech Chemical","M.Tech"],f:"Kanpur's government technical university; formerly HBTI; strong in core engg",uc:"Chemical Engineering, Oil Technology (specialized streams)"},
+{n:"Institute of Engineering and Technology Lucknow",s:"IET Lucknow",r:48,c:"Engineering",p:70,tp:48,ap:7,rec:["TCS","Infosys","Wipro","HCL","Amazon"],crs:["B.Tech CSE","B.Tech ECE","B.Tech ME","B.Tech Civil","M.Tech"],f:"Lucknow's government engineering college; Dr. A.P.J. Abdul Kalam Univ",uc:"—"},
+// ── Madhya Pradesh ────────────────────────────────────────────────────────
+{n:"LNCT Bhopal",s:"LNCT Bhopal",r:78,c:"Engineering",p:65,tp:38,ap:5,rec:["TCS","Infosys","Wipro","HCL","Cognizant"],crs:["B.Tech CSE","B.Tech ECE","B.Tech ME","B.Tech Civil","MBA"],f:"Bhopal's largest private engineering college; LNCT Group institution",uc:"—"},
+{n:"Maulana Azad National Institute of Technology Bhopal",s:"MANIT Bhopal",r:37,c:"Engineering",p:70,tp:62,ap:8,rec:["TCS","Infosys","Wipro","HCL","Cognizant"],crs:["B.Tech CSE","B.Tech EE","B.Tech ME","B.Tech Civil","M.Tech"],f:"Madhya Pradesh's leading NIT; growing placement and research record",uc:"Architecture (B.Arch, 5-year)"},
+// ── Odisha ────────────────────────────────────────────────────────────────
+{n:"Siksha O Anusandhan University",s:"SOA University Bhubaneswar",r:62,c:"Engineering",p:68,tp:40,ap:6,rec:["TCS","Infosys","Wipro","HCL","Cognizant"],crs:["B.Tech CSE","B.Tech ECE","B.Tech ME","MBBS","MBA"],f:"Bhubaneswar's large deemed university; strong in engineering and medicine",uc:"—"},
+{n:"C.V. Raman Global University",s:"CRU Bhubaneswar",r:70,c:"Engineering",p:65,tp:36,ap:5,rec:["TCS","Infosys","Wipro","HCL","Cognizant"],crs:["B.Tech CSE","B.Tech ECE","B.Tech ME","B.Tech Civil","MBA"],f:"Bhubaneswar's growing private university; formerly C.V. Raman College",uc:"—"},
+// ── Punjab / Haryana / Himachal ────────────────────────────────────────────
+{n:"UIET Chandigarh",s:"UIET Chandigarh",r:45,c:"Engineering",p:73,tp:52,ap:8,rec:["TCS","Infosys","Wipro","Amazon","HCL"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","M.Tech"],f:"Chandigarh's University Institute; part of Panjab University; govt aided",uc:"—"},
+{n:"Jaypee University of Information Technology",s:"JUIT Waknaghat",r:52,c:"Engineering",p:72,tp:50,ap:7,rec:["TCS","Infosys","Wipro","HCL","Amazon"],crs:["B.Tech CSE","B.Tech ECE","B.Tech ME","B.Tech Civil","M.Tech"],f:"Himachal Pradesh's top private university; scenic hill campus; good IT placements",uc:"—"},
+{n:"Chitkara University",s:"Chitkara Univ Punjab",r:58,c:"Engineering",p:70,tp:46,ap:7,rec:["TCS","Infosys","Wipro","HCL","Cognizant"],crs:["B.E. CSE","B.E. ECE","B.E. ME","B.E. Civil","MBA"],f:"Punjab's private university; strong in CSE and research",uc:"—"},
+// ── Other Notable Institutions ─────────────────────────────────────────────
+{n:"Woxsen University",s:"Woxsen Hyderabad",r:72,c:"University",p:70,tp:42,ap:7,rec:["McKinsey","Deloitte","KPMG","Amazon","Microsoft"],crs:["BBA","MBA","B.Tech CSE","B.Des","M.Des"],f:"Hyderabad's new-age private university; strong design and business focus",uc:"Design (B.Des, M.Des), Arts & Sciences"},
+{n:"MIT Art Design and Technology University",s:"MIT-ADT Pune",r:68,c:"University",p:68,tp:42,ap:6,rec:["TCS","Infosys","Wipro","Cognizant","HCL"],crs:["B.Tech CSE","B.Des","BBA","MBA","B.Arch"],f:"Pune's private multi-disciplinary university; MIT World Peace Univ sister",uc:"Design (B.Des), Architecture, Performing Arts"},
+{n:"Mody University of Science and Technology",s:"Mody University Rajasthan",r:80,c:"University",p:62,tp:34,ap:5,rec:["TCS","Infosys","Wipro","HCL","Cognizant"],crs:["B.Tech CSE","B.Tech ECE","B.Tech ME","MBA","BBA"],f:"Rajasthan's women-only (and co-ed) private university; unique residential model",uc:"Women-focused technical education model"},
+{n:"Graphic Era Hill University",s:"GEHU Dehradun",r:72,c:"Engineering",p:65,tp:36,ap:5,rec:["TCS","Infosys","Wipro","HCL","Cognizant"],crs:["B.Tech CSE","B.Tech ECE","B.Tech ME","B.Tech Civil","MBA"],f:"Dehradun's private hill university; sister of Graphic Era University",uc:"—"},
+{n:"VIT Bhopal University",s:"VIT Bhopal",r:75,c:"Engineering",p:68,tp:40,ap:6,rec:["TCS","Microsoft","Amazon","Infosys","Wipro"],crs:["B.Tech CSE","B.Tech ECE","B.Tech ME","B.Tech Civil","MBA"],f:"MP's VIT campus; strong CSE focus with VIT brand recognition",uc:"—"},
+
+];
+
+
+// ── State ────────────────────────────────────────
+let selected = [];
+let hiIdx    = -1;
+let _filtered = [];
+let _limit    = 60;
+
+const CAT_ICON  = {Engineering:'⚙️',University:'🏫',Management:'💼',
+                   Medical:'🏥',Law:'⚖️',Architecture:'🏛️','Social Work':'🤝'};
+const CAT_ORDER = ['Engineering','University','Management','Medical','Law','Architecture','Social Work'];
+
+const siEl       = document.getElementById('si');
+const ddEl       = document.getElementById('dd');
+const heroEl     = document.getElementById('hero');
+const resultsSec = document.getElementById('results-section');
+
+// ── Helpers ──────────────────────────────────────
+function available(){ return DB.filter(u => !selected.includes(u.n)); }
+
+// ── Dropdown ─────────────────────────────────────
+function showAll(){
+  renderDropdown(available(), 60);
+}
+
+function onSearch(){
+  hiIdx = -1;
+  const q = siEl.value.toLowerCase().trim();
+  if(q){
+    const res = available().filter(u =>
+      u.n.toLowerCase().includes(q) ||
+      (u.s && u.s.toLowerCase().includes(q)) ||
+      u.c.toLowerCase().includes(q)
+    );
+    renderDropdown(res, 999);
+  } else {
+    renderDropdown(available(), 60);
+  }
+}
+
+function renderDropdown(items, limit){
+  _filtered = items;
+  _limit    = limit;
+
+  if(!items.length){
+    ddEl.innerHTML = '<div class="dd-tip" style="justify-content:center;color:var(--text3)">No colleges found — try a different name</div>';
+    ddEl.style.display = 'block';
+    return;
+  }
+
+  const showing = items.slice(0, limit);
+  const hasMore = items.length > limit;
+
+  // Group by category
+  const groups = {};
+  showing.forEach(u => { if(!groups[u.c]) groups[u.c]=[]; groups[u.c].push(u); });
+  const cats = CAT_ORDER.filter(c => groups[c])
+               .concat(Object.keys(groups).filter(c => !CAT_ORDER.includes(c)));
+
+  let h = '<div class="dd-tip">'
+        + '<span>📋 <strong>' + items.length + '</strong> colleges</span>'
+        + '<span style="opacity:.55;font-size:11px">↕ Scroll &nbsp;·&nbsp; ⌨ Type to filter</span>'
+        + '</div>';
+
+  cats.forEach(cat => {
+    const list = groups[cat];
+    h += '<div class="dd-cat-hdr">' + (CAT_ICON[cat]||'🎓')
+       + '&nbsp;&nbsp;' + cat
+       + '&nbsp;<span style="opacity:.45;font-weight:400">(' + list.length + ')</span>'
+       + '</div>';
+    list.forEach(u => {
+      const idx = DB.indexOf(u);
+      h += '<div class="dd-item" data-idx="' + idx + '">'
+         + '<span class="dd-name">' + u.n + '</span>'
+         + '<span class="dd-badge">NIRF&nbsp;#' + u.r + '</span>'
+         + '</div>';
+    });
+  });
+
+  if(hasMore){
+    h += '<div class="dd-more" id="ddMore">↓&nbsp; Show ' + (items.length - limit) + ' more colleges</div>';
+  }
+
+  ddEl.innerHTML = h;
+  ddEl.style.display = 'block';
+
+  // Event listeners (not inline handlers — reliable)
+  ddEl.querySelectorAll('.dd-item').forEach(el => {
+    el.addEventListener('mousedown', function(e){
+      e.preventDefault();
+      addU(parseInt(this.dataset.idx, 10));
+    });
+  });
+  const moreBtn = document.getElementById('ddMore');
+  if(moreBtn){
+    moreBtn.addEventListener('mousedown', function(e){
+      e.preventDefault();
+      renderDropdown(_filtered, _limit + 60);
+    });
+  }
+}
+
+function onKey(e){
+  const its = ddEl.querySelectorAll('.dd-item');
+  if(e.key === 'ArrowDown'){
+    hiIdx = Math.min(hiIdx + 1, its.length - 1);
+    hlight(its); e.preventDefault();
+  } else if(e.key === 'ArrowUp'){
+    hiIdx = Math.max(hiIdx - 1, 0);
+    hlight(its); e.preventDefault();
+  } else if(e.key === 'Enter'){
+    if(hiIdx >= 0 && its[hiIdx]) its[hiIdx].dispatchEvent(new MouseEvent('mousedown'));
+    else {
+      const q = siEl.value.toLowerCase().trim();
+      const r = available().filter(u => u.n.toLowerCase().includes(q));
+      if(r.length) addU(DB.indexOf(r[0]));
+    }
+  } else if(e.key === 'Escape'){
+    ddEl.style.display = 'none';
+  }
+}
+
+function hlight(its){
+  its.forEach((el,i) => {
+    el.classList.toggle('dd-hi', i === hiIdx);
+  });
+  if(hiIdx >= 0 && its[hiIdx]) its[hiIdx].scrollIntoView({block:'nearest'});
+}
+
+// Close when clicking outside
+document.addEventListener('click', e => {
+  if(!document.getElementById('sw').contains(e.target) &&
+     !ddEl.contains(e.target)){
+    ddEl.style.display = 'none';
+  }
+});
+
+// ── Add / Remove ─────────────────────────────────
+function addU(i){
+  const u = DB[i];
+  if(!u || selected.includes(u.n)) return;
+  selected.push(u.n);
+  siEl.value = '';
+  ddEl.style.display = 'none';
+  hiIdx = -1;
+  if(selected.length === 1){
+    heroEl.classList.add('compact');
+    resultsSec.style.display = 'block';
+    setTimeout(() => resultsSec.classList.add('show'), 60);
+  }
+  renderTags();
+  render();
+}
+
+function remU(n){
+  selected = selected.filter(x => x !== n);
+  renderTags(); render();
+  if(!selected.length) collapseHero();
+}
+
+function clearAll(){
+  selected = []; renderTags(); render(); collapseHero();
+}
+
+function collapseHero(){
+  heroEl.classList.remove('compact');
+  resultsSec.classList.remove('show');
+  setTimeout(() => resultsSec.style.display = 'none', 700);
+}
+
+// ── Tags ─────────────────────────────────────────
+function renderTags(){
+  document.getElementById('tag-list').innerHTML = selected.map(n => {
+    const safe = n.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+    return '<span class="tag"><span>🏫</span>' + n
+         + '<button onclick="remU(\'' + safe + '\')" title="Remove">✕</button></span>';
+  }).join('');
+}
+
+// ── Results Table ─────────────────────────────────
+function render(){
+  const tb = document.getElementById('tb');
+  const rc = document.getElementById('res-count');
+  if(!selected.length){ tb.innerHTML = ''; rc.textContent = ''; return; }
+
+  const data = selected.map(n => DB.find(u => u.n === n)).filter(Boolean);
+  data.sort((a, b) => a.r - b.r);
+
+  const medals = ['g','s','b'];
+  tb.innerHTML = data.map((u, i) => {
+    const ucContent = u.uc === '—'
+      ? '<span class="dash">—</span>'
+      : u.uc.split(',').map(x => '<span class="upill">' + x.trim() + '</span>').join('');
+    return '<tr>'
+      + '<td><span class="pos-badge ' + (medals[i]||'') + '">' + (i+1) + '</span></td>'
+      + '<td><div class="u-name">' + u.s + '</div><div class="u-fact">' + u.f + '</div></td>'
+      + '<td><span class="nirf-num">' + u.r + '</span><div class="nirf-cat">' + u.c + '</div></td>'
+      + '<td><span class="pct">' + u.p + '%</span></td>'
+      + '<td><div class="pkg-hi"><span class="pkg-sym">₹</span>' + u.tp + ' LPA</div></td>'
+      + '<td><div class="pkg-hi"><span class="pkg-sym">₹</span>' + u.ap + ' LPA</div></td>'
+      + '<td>' + u.rec.slice(0,5).map(r => '<span class="rpill">'+r+'</span>').join('') + '</td>'
+      + '<td>' + u.crs.map(c => '<span class="cpill">'+c+'</span>').join('') + '</td>'
+      + '<td>' + ucContent + '</td>'
+      + '</tr>';
+  }).join('');
+
+  rc.textContent = 'Comparing ' + data.length
+    + (data.length===1?' institution':' institutions')
+    + ' · sorted by NIRF rank · Data: NIRF 2024-25';
+}
+
+function setActive(el){
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  el.classList.add('active');
+}
+
+</script>
+</body>
+</html>
